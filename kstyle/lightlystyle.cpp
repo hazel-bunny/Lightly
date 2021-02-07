@@ -691,7 +691,7 @@ namespace Lightly
             case PM_ButtonMargin:
             {
                 // needs special case for kcalc buttons, to prevent the application to set too small margins
-                if( widget && widget->inherits( "KCalcButton" ) ) return Metrics::Button_MarginWidth + 4;
+                if( widget && widget->inherits( "KCalcButton" ) ) return Metrics::Button_MarginWidth + dpiScaleR(4);
                 else return Metrics::Button_MarginWidth;
             }
 
@@ -4878,7 +4878,7 @@ namespace Lightly
             drawItemPixmap( painter, rect, textFlags, pixmap );
 
             // adjust rect (copied from QCommonStyle)
-            textRect.setLeft( textRect.left() + buttonOption->iconSize.width() + 4 );
+            textRect.setLeft( textRect.left() + buttonOption->iconSize.width() + dpiScaleR(4) );
             textRect = visualRect( option, textRect );
 
         }
@@ -4958,7 +4958,7 @@ namespace Lightly
 
                 const QPixmap pixmap = _helper->coloredIcon(cb->currentIcon,cb->palette, cb->iconSize, mode);
                 auto iconRect(editRect);
-                iconRect.setWidth(cb->iconSize.width() + 4);
+                iconRect.setWidth(cb->iconSize.width() + dpiScaleR(4));
                 iconRect = alignedRect(cb->direction,
                                        Qt::AlignLeft | Qt::AlignVCenter,
                                        iconRect.size(), editRect);
@@ -4969,7 +4969,7 @@ namespace Lightly
                 if (cb->direction == Qt::RightToLeft)
                     editRect.translate(-4 - cb->iconSize.width(), 0);
                 else
-                    editRect.translate(cb->iconSize.width() + 4, 0);
+                    editRect.translate(cb->iconSize.width() + dpiScaleR(4), 0);
             }
             if (!cb->currentText.isEmpty() && !cb->editable) {
                 proxy()->drawItemText(painter, editRect.adjusted(1, 0, -1, 0),

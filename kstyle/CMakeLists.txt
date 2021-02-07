@@ -92,6 +92,7 @@ set(lightly_PART_SRCS
     lightlymdiwindowshadow.cpp
     lightlymnemonics.cpp
     lightlypropertynames.cpp
+    lightlyscaling.cpp
     lightlyshadowhelper.cpp
     lightlysplitterproxy.cpp
     lightlystyle.cpp

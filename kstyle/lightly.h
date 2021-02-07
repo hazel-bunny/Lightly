@@ -24,6 +24,7 @@
 #include <QPointer>
 #include <QScopedPointer>
 #include <QWeakPointer>
+#include "lightlyscaling.h"
 
 namespace Lightly
 {
@@ -40,7 +41,7 @@ namespace Lightly
     //@}
 
     //* metrics
-    enum Metrics
+    enum MetricsUnscaled
     {
 
         // frames

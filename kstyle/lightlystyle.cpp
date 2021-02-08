@@ -4996,7 +4996,9 @@ namespace Lightly
         
         // draw background
         int opacity = _helper->titleBarColor( true ).alphaF()*100.0;
-        painter->fillRect(rect, _helper->alphaColor(option->palette.color( QPalette::Window ), opacity/100.0) );
+        //painter->fillRect(rect, _helper->alphaColor(option->palette.color( QPalette::Window ), opacity/100.0) );
+        // Test
+        painter->fillRect(rect, _helper->titleBarColor( true ));
         
         bool shouldDrawShadow = false;
         if ( LightlyPrivate::possibleTranslucentToolBars.isEmpty() ) shouldDrawShadow = true;
@@ -5059,7 +5061,9 @@ namespace Lightly
 
             // draw background
             int opacity = _helper->titleBarColor( true ).alphaF()*100.0;
-            painter->fillRect(rect, _helper->alphaColor(option->palette.color( QPalette::Window ), opacity/100.0) );
+            //painter->fillRect(rect, _helper->alphaColor(option->palette.color( QPalette::Window ), opacity/100.0) );
+            // Test
+            painter->fillRect(rect, _helper->titleBarColor( true ));
             
             bool shouldDrawShadow = false;
             int shadow_xoffset = 0;
@@ -5548,7 +5552,8 @@ namespace Lightly
         else
         {
             backgroundColor.setAlphaF(opacity/100.0);  
-            painter->fillRect( rect, backgroundColor );
+            //painter->fillRect( rect, backgroundColor );
+            painter->fillRect(rect, _helper->titleBarColor( true ));
         }
         
         if( StyleConfigData::toolBarDrawSeparator() && !_isDolphin )

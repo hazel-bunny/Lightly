@@ -938,7 +938,7 @@ namespace Lightly
 
         painter->setRenderHint( QPainter::Antialiasing );
 
-        QRectF frameRect( rect.adjusted( Metrics::Frame_FrameWidth, Metrics::Frame_FrameWidth, -Metrics::Frame_FrameWidth, -Metrics::Frame_FrameWidth ) );
+        QRectF frameRect( rect.adjusted( Metrics::Frame_FrameWidth - 1, Metrics::Frame_FrameWidth -1 /*0*/, -Metrics::Frame_FrameWidth + 1, -Metrics::Frame_FrameWidth +1 /*0*/) ); // Test
         qreal radius( frameRadius( PenWidth::NoPen, -1 ) );
         
         painter->setPen( Qt::NoPen );
@@ -1125,6 +1125,7 @@ namespace Lightly
         // setup painter
         painter->setRenderHint( QPainter::Antialiasing, true );
         painter->setPen( Qt::NoPen );
+        qreal sF = qMax(Lightly::Metrics::ScaleFactor - 0.1, 1.0);
 
         // copy rect and radius
         QRectF frameRect( rect );
@@ -1178,22 +1179,22 @@ namespace Lightly
             painter->setBrush( Qt::NoBrush );
             
             QPainterPath checkShadow;
-            checkShadow.moveTo(4.01+x, 10.95+y);
-            checkShadow.cubicTo(4.67+x, 11.64+y, 5.31+x, 12.29+y, 5.95+x, 13.12+y);
-            checkShadow.cubicTo(6.58+x, 13.95+y, 7.23+x, 14.99+y, 7.78+x, 14.87+y);
-            checkShadow.cubicTo(8.33+x, 14.76+y, 9.3+x, 13.34+y, 10.52+x, 11.55+y);
-            checkShadow.cubicTo(11.75+x, 9.76+y, 13.38+x, 7.38+y, 15.0+x, 5.0+y);
+            checkShadow.moveTo(sF * 4.01+x, sF * 10.95+y);
+            checkShadow.cubicTo(sF * 4.67+x, sF * 11.64+y, sF * 5.31+x, sF * 12.29+y, sF * 5.95+x, sF * 13.12+y);
+            checkShadow.cubicTo(sF * 6.58+x, sF * 13.95+y, sF * 7.23+x, sF * 14.99+y, sF * 7.78+x, sF * 14.87+y);
+            checkShadow.cubicTo(sF * 8.33+x, sF * 14.76+y, sF * 9.3+x, sF * 13.34+y, sF * 10.52+x, sF * 11.55+y);
+            checkShadow.cubicTo(sF * 11.75+x, sF * 9.76+y, sF * 13.38+x, sF * 7.38+y, sF * 15.0+x, sF * 5.0+y);
 
             painter->drawPath( checkShadow );
 
             QPainterPath check;
             pen.setColor( color ); // TODO: use HighlightedText
             painter->setPen( pen );
-            check.moveTo(4.01+x, 9.95+y);
-            check.cubicTo(4.67+x, 10.64+y, 5.31+x, 11.29+y, 5.95+x, 12.12+y);
-            check.cubicTo(6.58+x, 12.95+y, 7.23+x, 13.99+y, 7.78+x, 13.87+y);
-            check.cubicTo(8.33+x, 13.76+y, 9.3+x, 12.34+y, 10.52+x, 10.55+y);
-            check.cubicTo(11.75+x, 8.76+y, 13.38+x, 6.38+y, 15.0+x, 4.0+y);
+            check.moveTo(sF * 4.01+x, sF * 9.95+y);
+            check.cubicTo(sF * 4.67+x, sF * 10.64+y, sF * 5.31+x, sF * 11.29+y, sF * 5.95+x, sF * 12.12+y);
+            check.cubicTo(sF * 6.58+x, sF * 12.95+y, sF * 7.23+x, sF * 13.99+y, sF * 7.78+x, sF * 13.87+y);
+            check.cubicTo(sF * 8.33+x, sF * 13.76+y, sF * 9.3+x, sF * 12.34+y, sF * 10.52+x, sF * 10.55+y);
+            check.cubicTo(sF * 11.75+x, sF * 8.76+y, sF * 13.38+x, sF * 6.38+y, sF * 15.0+x, sF * 4.0+y);
 
             painter->drawPath( check );
 
@@ -1266,22 +1267,22 @@ namespace Lightly
                     painter->setBrush( Qt::NoBrush );
                     
                     QPainterPath checkShadow;
-                    checkShadow.moveTo(animation*4.01+x, 10.95+y);
-                    checkShadow.cubicTo(animation*4.67+x, 11.64+y, animation*5.31+x, 12.29+y, animation*5.95+x, 13.12+y);
-                    checkShadow.cubicTo(animation*6.58+x, 13.95+y, animation*7.23+x, 14.99+y, animation*7.78+x, 14.87+y);
-                    checkShadow.cubicTo(animation*8.33+x, 14.76+y, animation*9.3+x, 13.34+y, animation*10.52+x, 11.55+y);
-                    checkShadow.cubicTo(animation*11.75+x, 9.76+y, animation*13.38+x, 7.38+y, animation*15.0+x, 5.0+y);
+                    checkShadow.moveTo(sF * animation*4.01+x, sF * 10.95+y);
+                    checkShadow.cubicTo(sF * animation*4.67+x, sF * 11.64+y, sF * animation*5.31+x, sF * 12.29+y, sF * animation*5.95+x, sF * 13.12+y);
+                    checkShadow.cubicTo(sF * animation*6.58+x, sF * 13.95+y, sF * animation*7.23+x, sF * 14.99+y, sF * animation*7.78+x, sF * 14.87+y);
+                    checkShadow.cubicTo(sF * animation*8.33+x, sF * 14.76+y, sF * animation*9.3+x, sF * 13.34+y, sF * animation*10.52+x, sF * 11.55+y);
+                    checkShadow.cubicTo(sF * animation*11.75+x, sF * 9.76+y, sF * animation*13.38+x, sF * 7.38+y, sF * animation*15.0+x, sF * 5.0+y);
 
                     painter->drawPath( checkShadow );
 
                     QPainterPath check;
                     pen.setColor( alphaColor(color, 1.0*animation) ); // TODO: use HighlightedText
                     painter->setPen( pen );
-                    check.moveTo(animation*4.01+x, 9.95+y);
-                    check.cubicTo(animation*4.67+x, 10.64+y, animation*5.31+x, 11.29+y, animation*5.95+x, 12.12+y);
-                    check.cubicTo(animation*6.58+x, 12.95+y, animation*7.23+x, 13.99+y, animation*7.78+x, 13.87+y);
-                    check.cubicTo(animation*8.33+x, 13.76+y, animation*9.3+x, 12.34+y, animation*10.52+x, 10.55+y);
-                    check.cubicTo(animation*11.75+x, 8.76+y, animation*13.38+x, 6.38+y, animation*15.0+x, 4.0+y);
+                    check.moveTo(sF * animation*4.01+x, sF * 9.95+y);
+                    check.cubicTo(sF * animation*4.67+x, sF * 10.64+y, sF * animation*5.31+x, sF * 11.29+y, sF * animation*5.95+x, sF * 12.12+y);
+                    check.cubicTo(sF * animation*6.58+x, sF * 12.95+y, sF * animation*7.23+x, sF * 13.99+y, sF * animation*7.78+x, sF * 13.87+y);
+                    check.cubicTo(sF * animation*8.33+x, sF * 13.76+y, sF * animation*9.3+x, sF * 12.34+y, sF * animation*10.52+x, sF * 10.55+y);
+                    check.cubicTo(sF * animation*11.75+x, sF * 8.76+y, sF * animation*13.38+x, sF * 6.38+y, sF * animation*15.0+x, sF * 4.0+y);
 
                     painter->drawPath( check );
                 } 

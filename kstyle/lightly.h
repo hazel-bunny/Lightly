@@ -58,9 +58,9 @@ namespace Lightly
 
         // menu items
         //Menu_FrameWidth = 4,
-        MenuItem_MarginWidth = 5,
-        MenuItem_MarginHeight = 3,
-        MenuItem_ItemSpacing = 4,
+        MenuItem_MarginWidth = 4,//5,
+        MenuItem_MarginHeight = 2,//3,
+        MenuItem_ItemSpacing = 3,//4,
         MenuItem_AcceleratorSpace = 16,
         MenuButton_IndicatorWidth = 20,
 
@@ -80,7 +80,7 @@ namespace Lightly
         Button_ItemSpacing = 4,
 
         // tool buttons
-        ToolButton_MarginWidth = 6,
+        ToolButton_MarginWidth = 7, //6
         ToolButton_ItemSpacing = 4,
         ToolButton_InlineIndicatorWidth = 12,
 
@@ -102,7 +102,7 @@ namespace Lightly
         ScrollBar_DoubleButtonHeight = 2*ScrollBar_Extend,
 
         // toolbars
-        ToolBar_FrameWidth = 2,
+        ToolBar_FrameWidth = 3, //2
         ToolBar_HandleExtent = 10,
         ToolBar_HandleWidth = 6,
         ToolBar_SeparatorWidth = 8,

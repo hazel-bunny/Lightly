@@ -50,7 +50,7 @@ namespace Metrics
     qreal ScaleFactor = CalculateScaleFactor();
 
     // frames
-    int Frame_FrameWidth = dpiScaleR(MetricsUnscaled::Frame_FrameWidth); //5;
+    int Frame_FrameWidth = qBound(3.0, std::round(MetricsUnscaled::Frame_FrameWidth * ScaleFactor), 8.0); //5;
     //int Frame_FrameRadius = qBound(3.0, std::floor(MetricsUnscaled::Frame_FrameRadius * ScaleFactor), 6.0); //3;
 
     // layout

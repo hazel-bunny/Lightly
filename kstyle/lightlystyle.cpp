@@ -3608,7 +3608,7 @@ namespace Lightly
         //const auto outline( _helper->frameOutlineColor( palette ) );
         
         //const State& state( option->state );
-        const bool mouseOver ( widget->property("HOVER").toBool() );
+        //const bool mouseOver ( widget->property("HOVER").toBool() );  // can cause crashes
         
         //qDebug() << mouseOver;
 
@@ -3618,7 +3618,7 @@ namespace Lightly
          */
 
         painter->setClipRegion( option->rect );
-        _helper->renderGroupBox( painter, option->rect, background, mouseOver );
+        _helper->renderGroupBox( painter, option->rect, background, false );
 
         return true;
 
@@ -6312,8 +6312,31 @@ namespace Lightly
                                                                                         : QIcon::Off);
                     painter->drawPixmap(iconRect.x(), iconRect.y(), tabIcon);
                 }
+                
+                QFont font = painter->font();
+                if (!(tabOption->state & State_Enabled)) {
+                    if (tabOption->state & State_Selected) {
+                        //painter->setPen(Colors::mix(option->palette.brush(QPalette::Text).color(), option->palette.brush(QPalette::Window).color(), 0.3));
+                        painter->setPen( option->palette.brush( QPalette::WindowText ).color() );
+                        //font.setBold(true);
+                    } else {
+                        painter->setPen( _helper->alphaColor(option->palette.brush( QPalette::WindowText ).color(), 0.5 ) );
+                    }
+                } else {
+                    if (tabOption->state & State_Selected) {
+                        painter->setPen(option->palette.brush(QPalette::WindowText).color());
+                        //painter->setPen( KColorUtils::mix( option->palette.brush(QPalette::WindowText).color(),       // test more combinations later 
+                                                            //option->palette.brush(QPalette::Highlight).color(), 0.5 ) ); 
+                        //font.setWeight( QFont::Medium );
+                    } else if (tabOption->state & State_Active && tabOption->state & State_MouseOver) {
+                        painter->setPen(option->palette.brush(QPalette::WindowText).color());
+                    } else {
+                        painter->setPen( _helper->alphaColor(option->palette.brush( QPalette::WindowText).color(), 0.75 ) );
+                    }
+                }
+                painter->setFont(font);
 
-                proxy()->drawItemText(painter, tr, alignment, tabOption->palette, tabOption->state & State_Enabled, tabOption->text, QPalette::WindowText);
+                proxy()->drawItemText(painter, tr, alignment, tabOption->palette, tabOption->state & State_Enabled, tabOption->text, QPalette::NoRole);
                 if (verticalTabs)
                     painter->restore();
             }

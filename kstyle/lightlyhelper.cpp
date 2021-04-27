@@ -418,7 +418,12 @@ namespace Lightly
 
         const QList<QPalette::ColorRole> roles = { QPalette::Background, QPalette::Highlight, QPalette::WindowText, QPalette::ButtonText, QPalette::Text, QPalette::Button };
         foreach( const QPalette::ColorRole& role, roles )
-        { copy.setColor( role, KColorUtils::mix( source.color( QPalette::Active, role ), source.color( QPalette::Disabled, role ), 1.0-ratio ) ); }
+        //{ copy.setColor( role, KColorUtils::mix( source.color( QPalette::Active, role ), source.color( QPalette::Disabled, role ), 1.0-ratio ) ); }
+        {
+            QColor disabled = source.color(QPalette::Active, role);
+            disabled.setAlphaF(100);
+            copy.setColor(role, disabled);
+        };
 
         return copy;
     }
@@ -1122,7 +1127,7 @@ namespace Lightly
     //______________________________________________________________________________
     void Helper::renderCheckBox(
         QPainter* painter, const QRect& rect, const QPalette& palette, const bool isInMenu,
-        bool sunken, const bool mouseOver, CheckBoxState state, const bool windowActive, qreal animation ) const
+        const bool selected, bool sunken, const bool mouseOver, CheckBoxState state, const bool windowActive, qreal animation ) const
     {
 
         // setup painter
@@ -1138,14 +1143,13 @@ namespace Lightly
         const bool darkTheme( isDarkTheme( palette ) );
         const QColor color ( palette.color( QPalette::HighlightedText ) );
         QColor background (state == CheckOn ? palette.color( QPalette::Highlight ) : palette.color( QPalette::Button ));
-        if( isInMenu ) background = background.lighter(115);
+        if( selected ) background = background.lighter(115);
 
         // float and sunken effect
         if( sunken ) frameRect.translate(1, 1);
         else if( state == CheckOn || (state == CheckOff && mouseOver) ) frameRect.translate(-1, -1);
-        
-        if( state == CheckOff)
-        {
+
+        if (state == CheckOff && !isInMenu) {
             // small shadow
             if( mouseOver ){ 
                 renderBoxShadow( painter, frameRect, 0, 1, 5, QColor(0,0,0,120), 1, windowActive );
@@ -1157,16 +1161,19 @@ namespace Lightly
             }
             painter->setBrush( mouseOver ? background.lighter(115) : background );
             painter->drawRoundedRect( frameRect, radius, radius );
-            
-        } else if( state == CheckOn ) { //mark
-            
-            if ( darkTheme ) renderBoxShadow( painter, frameRect, 0, 1, 4, mouseOver ? background.darker(140):background.darker(200), radius, windowActive );
-            else {
-                renderBoxShadow( painter, frameRect, 0, 1, 4, background.darker(220), radius, windowActive );
-                renderOutline( painter, frameRect, radius, 4 );
+
+        } else if (state == CheckOn) { // mark
+
+            if (!isInMenu) {
+                if ( darkTheme ) renderBoxShadow( painter, frameRect, 0, 1, 4, mouseOver ? background.darker(140):background.darker(200), radius, windowActive );
+                else {
+                    renderBoxShadow( painter, frameRect, 0, 1, 4, background.darker(220), radius, windowActive );
+                    renderOutline( painter, frameRect, radius, 4 );
+                }
+                painter->setBrush( mouseOver ? background.lighter(110) : background );
+                painter->drawRoundedRect( frameRect, radius, radius );
             }
-            painter->setBrush( mouseOver ? background.lighter(110) : background );
-            painter->drawRoundedRect( frameRect, radius, radius );
+            
             
             //draw check mark
             const int x = frameRect.x();
@@ -1179,29 +1186,29 @@ namespace Lightly
             
             painter->setPen( pen );
             painter->setBrush( Qt::NoBrush );
-            
-            QPainterPath checkShadow;
-            checkShadow.moveTo(4.01+x, 10.95+y);
-            checkShadow.cubicTo(4.67+x, 11.64+y, 5.31+x, 12.29+y, 5.95+x, 13.12+y);
-            checkShadow.cubicTo(6.58+x, 13.95+y, 7.23+x, 14.99+y, 7.78+x, 14.87+y);
-            checkShadow.cubicTo(8.33+x, 14.76+y, 9.3+x, 13.34+y, 10.52+x, 11.55+y);
-            checkShadow.cubicTo(11.75+x, 9.76+y, 13.38+x, 7.38+y, 15.0+x, 5.0+y);
 
+            const double scale = 0.777;
+
+            QPainterPath checkShadow;
+            checkShadow.moveTo(4.01 * scale + x, 10.95 * scale + y);
+            checkShadow.cubicTo(4.67 * scale + x, 11.64 * scale + y, 5.31 * scale + x, 12.29 * scale + y, 5.95 * scale + x, 13.12 * scale + y);
+            checkShadow.cubicTo(6.58 * scale + x, 13.95 * scale + y, 7.23 * scale + x, 14.99 * scale + y, 7.78 * scale + x, 14.87 * scale + y);
+            checkShadow.cubicTo(8.33 * scale + x, 14.76 * scale + y, 9.3 * scale + x, 13.34 * scale + y, 10.52 * scale + x, 11.55 * scale + y);
+            checkShadow.cubicTo(11.75 * scale + x, 9.76 * scale + y, 13.38 * scale + x, 7.38 * scale + y, 15.0 * scale + x, 5.0 * scale + y);
             painter->drawPath( checkShadow );
 
             QPainterPath check;
             pen.setColor( color ); // TODO: use HighlightedText
             painter->setPen( pen );
-            check.moveTo(4.01+x, 9.95+y);
-            check.cubicTo(4.67+x, 10.64+y, 5.31+x, 11.29+y, 5.95+x, 12.12+y);
-            check.cubicTo(6.58+x, 12.95+y, 7.23+x, 13.99+y, 7.78+x, 13.87+y);
-            check.cubicTo(8.33+x, 13.76+y, 9.3+x, 12.34+y, 10.52+x, 10.55+y);
-            check.cubicTo(11.75+x, 8.76+y, 13.38+x, 6.38+y, 15.0+x, 4.0+y);
+            check.moveTo(4.01 * scale + x, 9.95 * scale + y);
+            check.cubicTo(4.67 * scale + x, 10.64 * scale + y, 5.31 * scale + x, 11.29 * scale + y, 5.95 * scale + x, 12.12 * scale + y);
+            check.cubicTo(6.58 * scale + x, 12.95 * scale + y, 7.23 * scale + x, 13.99 * scale + y, 7.78 * scale + x, 13.87 * scale + y);
+            check.cubicTo(8.33 * scale + x, 13.76 * scale + y, 9.3 * scale + x, 12.34 * scale + y, 10.52 * scale + x, 10.55 * scale + y);
+            check.cubicTo(11.75 * scale + x, 8.76 * scale + y, 13.38 * scale + x, 6.38 * scale + y, 15.0 * scale + x, 4.0 * scale + y);
 
             painter->drawPath( check );
 
-        } else if( state == CheckPartial ) {
-
+        } else if (state == CheckPartial) {
             QPen pen( color, 2 );
             pen.setJoinStyle( Qt::MiterJoin );
             painter->setPen( pen );
@@ -1219,8 +1226,7 @@ namespace Lightly
             path.lineTo( markerRect.left(), markerRect.bottom()-1 );
             painter->drawPath( path );
 
-        } else if( state == CheckAnimated ) {
-
+        } else if (state == CheckAnimated) {
             if ( darkTheme ) renderBoxShadow( painter, frameRect, 0, 1, 4, background.darker(220), radius, windowActive );
             else renderBoxShadow( painter, frameRect, 0, 1, 4, background.darker(220), radius, windowActive );
             
@@ -1287,8 +1293,8 @@ namespace Lightly
                     check.cubicTo(animation*11.75+x, 8.76+y, animation*13.38+x, 6.38+y, animation*15.0+x, 4.0+y);
 
                     painter->drawPath( check );
-                } 
-            }
+                }
+        }
 
         if( darkTheme ) topHighlight( painter, frameRect, radius );
 

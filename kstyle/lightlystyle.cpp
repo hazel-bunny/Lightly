@@ -4243,7 +4243,7 @@ namespace Lightly
 
         // render
         //_helper->renderCheckBoxBackground( painter, rect, background, sunken );   // needed??
-        _helper->renderCheckBox( painter, rect, palette, false, sunken, mouseOver, checkBoxState, false, animation );
+        _helper->renderCheckBox(painter, rect, palette, false, false, sunken, mouseOver, checkBoxState, false, animation);
         return true;
 
     }
@@ -5308,9 +5308,13 @@ namespace Lightly
                 painter->setBrush( color );
                 painter->setPen( Qt::NoPen );
                 QRect copy ( sunken ? rect.adjusted(2, 2, -2, -2) : rect.adjusted(1, 1, -1, -1) );
-                
-                if( animated && intersected ) painter->drawRoundedRect( copy.adjusted(3*(1-opacity), 3*(1-opacity), -3*(1-opacity), -3*(1-opacity)), StyleConfigData::cornerRadius(), StyleConfigData::cornerRadius() );
-                else painter->drawRoundedRect( copy, StyleConfigData::cornerRadius(), StyleConfigData::cornerRadius() );
+
+                if (animated && intersected)
+                    painter->drawRoundedRect(copy.adjusted(3 * (1 - opacity), 3 * (1 - opacity), -3 * (1 - opacity), -3 * (1 - opacity)),
+                                             StyleConfigData::cornerRadius() * 0.75,
+                                             StyleConfigData::cornerRadius() * 0.75);
+                else
+                    painter->drawRoundedRect(copy, StyleConfigData::cornerRadius() * 0.75, StyleConfigData::cornerRadius() * 0.75);
 
             }
             else {
@@ -5318,7 +5322,9 @@ namespace Lightly
                 painter->setRenderHints( QPainter::Antialiasing );
                 painter->setBrush( color );
                 painter->setPen( Qt::NoPen );
-                painter->drawRoundedRect( sunken ? rect.adjusted(2, 2, -2, -2) : rect.adjusted(1, 1, -1, -1), StyleConfigData::cornerRadius(), StyleConfigData::cornerRadius() );
+                painter->drawRoundedRect(sunken ? rect.adjusted(2, 2, -2, -2) : rect.adjusted(1, 1, -1, -1),
+                                         StyleConfigData::cornerRadius() * 0.75,
+                                         StyleConfigData::cornerRadius() * 0.75);
             }
 
         }
@@ -5351,7 +5357,7 @@ namespace Lightly
             //const auto color( _helper->checkBoxIndicatorColor( palette, false, enabled && active ) );
             const auto background( state == CheckOn ? palette.color( QPalette::Highlight ) : palette.color( QPalette::Button ) );
             //_helper->renderCheckBoxBackground( painter, checkBoxRect, palette.color( QPalette::Window ), sunken );    //not needed
-            _helper->renderCheckBox( painter, checkBoxRect, palette, selected, sunken, true, state, windowActive );
+            _helper->renderCheckBox(painter, checkBoxRect, palette, true, selected, sunken, true, state, windowActive);
 
         } else if( menuItemOption->checkType == QStyleOptionMenuItem::Exclusive ) {
 

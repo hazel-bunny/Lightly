@@ -213,7 +213,16 @@ namespace Lightly
         void renderGroupBox( QPainter*, const QRect&, const QColor& color, const bool mouseOver ) const;
 
         //* checkbox
-        void renderCheckBox( QPainter*, const QRect&, const QPalette&, const bool isInMenu, bool sunken, const bool mouseOver, CheckBoxState state, const bool windowActive, qreal animation = AnimationData::OpacityInvalid ) const;
+        void renderCheckBox(QPainter *,
+                            const QRect &,
+                            const QPalette &,
+                            const bool isInMenu,
+                            const bool selected,
+                            bool sunken,
+                            const bool mouseOver,
+                            CheckBoxState state,
+                            const bool windowActive,
+                            qreal animation = AnimationData::OpacityInvalid) const;
 
         //* radio button
         void renderRadioButton( QPainter*, const QRect&, const QPalette&, const bool mouseOver, bool sunken, RadioButtonState state, const bool isInMenu, qreal animation = AnimationData::OpacityInvalid ) const;

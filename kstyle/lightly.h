@@ -57,9 +57,9 @@ namespace Lightly
 
         // menu items
         //Menu_FrameWidth = 4,
-        MenuItem_MarginWidth = 5,
-        MenuItem_MarginHeight = 3,
-        MenuItem_ItemSpacing = 4,
+        MenuItem_MarginWidth = 2,
+        MenuItem_MarginHeight = 2,
+        MenuItem_ItemSpacing = 3,
         MenuItem_AcceleratorSpace = 16,
         MenuButton_IndicatorWidth = 20,
 
@@ -84,7 +84,7 @@ namespace Lightly
         ToolButton_InlineIndicatorWidth = 12,
 
         // checkboxes and radio buttons
-        CheckBox_Size = 18 + ( Frame_FrameWidth - 1 )*2,
+        CheckBox_Size = 14 + ( Frame_FrameWidth - 1 )*2,
         CheckBox_FocusMarginWidth = 2,
         CheckBox_ItemSpacing = 4,
 

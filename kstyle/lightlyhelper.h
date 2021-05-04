@@ -225,7 +225,7 @@ namespace Lightly
                             qreal animation = AnimationData::OpacityInvalid) const;
 
         //* radio button
-        void renderRadioButton( QPainter*, const QRect&, const QPalette&, const bool mouseOver, bool sunken, RadioButtonState state, const bool isInMenu, qreal animation = AnimationData::OpacityInvalid ) const;
+        void renderRadioButton( QPainter*, const QRect&, const QPalette&, const bool mouseOver, bool sunken, RadioButtonState state, const bool isInMenu, const bool selected, qreal animation = AnimationData::OpacityInvalid ) const;
 
         //* slider groove
         void renderSliderGroove( QPainter*, const QRect&, const QColor& ) const;

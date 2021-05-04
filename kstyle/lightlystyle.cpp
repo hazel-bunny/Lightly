@@ -4281,7 +4281,7 @@ namespace Lightly
         //const QColor color( palette.color( QPalette::HighlightedText ) );
         // render
         //_helper->renderRadioButtonBackground( painter, rect, background, sunken );
-        _helper->renderRadioButton( painter, rect, palette, mouseOver, sunken, radioButtonState, false, animation );
+        _helper->renderRadioButton( painter, rect, palette, mouseOver, sunken, radioButtonState, false, false, animation );
 
         return true;
 
@@ -5294,6 +5294,7 @@ namespace Lightly
             
             // check if there is a 'sliding' animation in progress, in which case, do nothing
             const QRect animatedRect( _animations->menuEngine().animatedRect( widget ) );
+            const double menuRoundingFactor = 0.85;
             if( animatedRect.isNull() )
             {
                 painter->setRenderHints( QPainter::Antialiasing );
@@ -5311,10 +5312,10 @@ namespace Lightly
 
                 if (animated && intersected)
                     painter->drawRoundedRect(copy.adjusted(3 * (1 - opacity), 3 * (1 - opacity), -3 * (1 - opacity), -3 * (1 - opacity)),
-                                             StyleConfigData::cornerRadius() * 0.75,
-                                             StyleConfigData::cornerRadius() * 0.75);
+                                             StyleConfigData::cornerRadius() * menuRoundingFactor,
+                                             StyleConfigData::cornerRadius() * menuRoundingFactor);
                 else
-                    painter->drawRoundedRect(copy, StyleConfigData::cornerRadius() * 0.75, StyleConfigData::cornerRadius() * 0.75);
+                    painter->drawRoundedRect(copy, StyleConfigData::cornerRadius() * menuRoundingFactor, StyleConfigData::cornerRadius() * menuRoundingFactor);
 
             }
             else {
@@ -5323,8 +5324,8 @@ namespace Lightly
                 painter->setBrush( color );
                 painter->setPen( Qt::NoPen );
                 painter->drawRoundedRect(sunken ? rect.adjusted(2, 2, -2, -2) : rect.adjusted(1, 1, -1, -1),
-                                         StyleConfigData::cornerRadius() * 0.75,
-                                         StyleConfigData::cornerRadius() * 0.75);
+                                         StyleConfigData::cornerRadius() * menuRoundingFactor,
+                                         StyleConfigData::cornerRadius() * menuRoundingFactor);
             }
 
         }
@@ -5367,7 +5368,7 @@ namespace Lightly
             //const auto shadow( _helper->shadowColor( palette ) );
             //const auto color( _helper->checkBoxIndicatorColor( palette, false, enabled && active ) );
             //_helper->renderRadioButtonBackground( painter, checkBoxRect, palette.color( QPalette::Window ), sunken ); //not needed
-            _helper->renderRadioButton( painter, checkBoxRect, palette, selected, sunken, active ? RadioOn:RadioOff, true );
+            _helper->renderRadioButton( painter, checkBoxRect, palette, selected, sunken, active ? RadioOn:RadioOff, true, true );
 
         }
 

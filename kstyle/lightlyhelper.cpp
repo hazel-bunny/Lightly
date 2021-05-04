@@ -1146,8 +1146,8 @@ namespace Lightly
         if( selected ) background = background.lighter(115);
 
         // float and sunken effect
-        if( sunken ) frameRect.translate(1, 1);
-        else if( state == CheckOn || (state == CheckOff && mouseOver) ) frameRect.translate(-1, -1);
+        //if( sunken ) frameRect.translate(1, 1);
+        //else if( state == CheckOn || (state == CheckOff && mouseOver) ) frameRect.translate(-1, -1);
 
         if (state == CheckOff && !isInMenu) {
             // small shadow
@@ -1304,7 +1304,7 @@ namespace Lightly
     void Helper::renderRadioButton(
         QPainter* painter, const QRect& rect,
         const QPalette& palette, const bool mouseOver,
-        bool sunken, RadioButtonState state, const bool isInMenu, qreal animation ) const
+        bool sunken, RadioButtonState state, const bool isInMenu, const bool selected, qreal animation ) const
     {
 
         // setup painter
@@ -1322,8 +1322,8 @@ namespace Lightly
         frameRect.adjust( Metrics::Frame_FrameWidth - 1, Metrics::Frame_FrameWidth - 1, - Metrics::Frame_FrameWidth + 1, -Metrics::Frame_FrameWidth + 1 );
 
         // float and sunken effect
-        if( sunken ) frameRect.translate( 1, 1 );
-        else if( state == RadioOn || (state == RadioOff && mouseOver) ) frameRect.translate(-1, -1);
+        //if( sunken ) frameRect.translate( 1, 1 );
+        //else if( state == RadioOn || (state == RadioOff && mouseOver) ) frameRect.translate(-1, -1);
 
         // mark
         if( state == RadioOn )

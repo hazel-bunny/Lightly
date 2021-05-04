@@ -1194,7 +1194,7 @@ namespace Lightly
             painter->setPen( pen );
             painter->setBrush( Qt::NoBrush );
 
-            const double scale = 0.777;
+            const double scale = 0.75;
 
             QPainterPath checkShadow;
             checkShadow.moveTo(4.01 * scale + x, 10.95 * scale + y);
@@ -1205,7 +1205,7 @@ namespace Lightly
             painter->drawPath( checkShadow );
 
             QPainterPath check;
-            pen.setColor( color ); // TODO: use HighlightedText
+            pen.setColor( color );
             painter->setPen( pen );
             check.moveTo(4.01 * scale + x, 9.95 * scale + y);
             check.cubicTo(4.67 * scale + x, 10.64 * scale + y, 5.31 * scale + x, 11.29 * scale + y, 5.95 * scale + x, 12.12 * scale + y);

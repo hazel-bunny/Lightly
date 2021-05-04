@@ -712,21 +712,27 @@ namespace Lightly
 
         } else if ( enabled && color.alphaF() == 1 ) { // shadow
             
-            if ( mouseOver || hasFocus ){
+            if ( mouseOver || hasFocus ) {
                 //frameRect.translate( 0, -1 ); feels cheap without animations
                 
                 QColor shadowColor = hasFocus ? color.darker(220) : QColor( 0 ,0 ,0 ,170 );
                 renderBoxShadow( painter, frameRect, 0, 1, 6, shadowColor, radius, windowActive );
                 
-            } else 
-                renderBoxShadow( painter, frameRect, 0, 1, 3, QColor( 0, 0, 0, 120 ), radius, windowActive );
+            } else {
+                renderBoxShadow(painter, frameRect, 0, 1, 3, QColor(0, 0, 0, 120), radius, windowActive);
+            }
         }
 
         // content
-        if( color.isValid() )
-            painter->setBrush( sunken ? focusColor(palette).darker(110) : mouseOver ? color.lighter( hasFocus ? 102 : 105 ) : color );
+        painter->setBrush( Qt::NoBrush );
 
-        else painter->setBrush( Qt::NoBrush ); 
+        if( color.isValid() ) {
+            if ( sunken ) {
+                painter->setBrush(focusColor(palette).darker(110));
+            } else {
+                painter->setBrush(mouseOver ? color.lighter(hasFocus ? 102 : 105) : color);
+            }
+        }
 
         // render
         painter->drawRoundedRect( frameRect, radius, radius );

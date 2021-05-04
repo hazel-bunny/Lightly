@@ -1141,7 +1141,7 @@ namespace Lightly
         
         // setup colors
         const bool darkTheme( isDarkTheme( palette ) );
-        const QColor color ( palette.color( QPalette::HighlightedText ) );
+        const QColor color ( isInMenu ? palette.color( QPalette::ButtonText ) : palette.color( QPalette::HighlightedText ) );
         QColor background (state == CheckOn ? palette.color( QPalette::Highlight ) : palette.color( QPalette::Button ));
         if( selected ) background = background.lighter(115);
 
@@ -1296,7 +1296,7 @@ namespace Lightly
                 }
         }
 
-        if( darkTheme ) topHighlight( painter, frameRect, radius );
+        if( darkTheme && !isInMenu ) topHighlight( painter, frameRect, radius );
 
     }
 

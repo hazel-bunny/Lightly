@@ -1141,9 +1141,16 @@ namespace Lightly
         
         // setup colors
         const bool darkTheme( isDarkTheme( palette ) );
-        const QColor color ( isInMenu ? palette.color( QPalette::ButtonText ) : palette.color( QPalette::HighlightedText ) );
+
+        QColor color = palette.color( QPalette::HighlightedText );
+        if ( isInMenu ) {
+            color = selected ? palette.color( QPalette::HighlightedText ) : palette.color( QPalette::ButtonText );
+        }
+
         QColor background (state == CheckOn ? palette.color( QPalette::Highlight ) : palette.color( QPalette::Button ));
-        if( selected ) background = background.lighter(115);
+        if( selected ) {
+            background = background.lighter(115);
+        }
 
         // float and sunken effect
         //if( sunken ) frameRect.translate(1, 1);

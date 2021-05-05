@@ -31,20 +31,18 @@
 //* QDialog used to commit selected files
 namespace Lightly
 {
-
     class ExceptionListWidget: public QWidget
     {
-
         //* Qt meta object
-        Q_OBJECT
+    Q_OBJECT
 
-        public:
+    public:
 
         //* constructor
-        explicit ExceptionListWidget( QWidget* = nullptr );
+        explicit ExceptionListWidget(QWidget * = nullptr);
 
         //* set exceptions
-        void setExceptions( const InternalSettingsList& );
+        void setExceptions(const InternalSettingsList &);
 
         //* get exceptions
         InternalSettingsList exceptions();
@@ -53,22 +51,22 @@ namespace Lightly
         virtual bool isChanged() const
         { return m_changed; }
 
-        Q_SIGNALS:
+    Q_SIGNALS:
 
         //* emitted when changed
-        void changed( bool );
+        void changed(bool);
 
-        protected:
+    protected:
 
         //* model
-        const ExceptionModel& model() const
+        const ExceptionModel &model() const
         { return m_model; }
 
         //* model
-        ExceptionModel& model()
+        ExceptionModel &model()
         { return m_model; }
 
-        protected Q_SLOTS:
+    protected Q_SLOTS:
 
         //* update button states
         virtual void updateButtons();
@@ -83,7 +81,7 @@ namespace Lightly
         virtual void remove();
 
         //* toggle
-        virtual void toggle( const QModelIndex& );
+        virtual void toggle(const QModelIndex &);
 
         //* move up
         virtual void up();
@@ -91,22 +89,22 @@ namespace Lightly
         //* move down
         virtual void down();
 
-        protected:
+    protected:
 
         //* resize columns
         void resizeColumns() const;
 
         //* check exception
-        bool checkException( InternalSettingsPtr );
+        bool checkException(InternalSettingsPtr);
 
         //* set changed state
-        virtual void setChanged( bool value )
+        virtual void setChanged(bool value)
         {
             m_changed = value;
-            emit changed( value );
+            emit changed(value);
         }
 
-        private:
+    private:
 
         //* model
         ExceptionModel m_model;
@@ -116,9 +114,7 @@ namespace Lightly
 
         //* changed state
         bool m_changed = false;
-
     };
-
 }
 
 #endif

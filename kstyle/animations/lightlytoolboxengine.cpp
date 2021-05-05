@@ -22,34 +22,28 @@
 
 namespace Lightly
 {
-
     //____________________________________________________________
-    bool ToolBoxEngine::registerWidget( QWidget* widget )
+    bool ToolBoxEngine::registerWidget(QWidget *widget)
     {
-
-        if( !widget ) return false;
-        if( !_data.contains( widget ) ) { _data.insert( widget, new WidgetStateData( this, widget, duration() ), enabled() ); }
+        if (!widget) { return false; }
+        if (!_data.contains(widget)) { _data.insert(widget, new WidgetStateData(this, widget, duration()), enabled()); }
 
         // connect destruction signal
-        connect( widget, SIGNAL(destroyed(QObject*)), this, SLOT(unregisterWidget(QObject*)), Qt::UniqueConnection );
+        connect(widget, SIGNAL(destroyed(QObject * )), this, SLOT(unregisterWidget(QObject * )), Qt::UniqueConnection);
         return true;
-
     }
 
     //____________________________________________________________
-    bool ToolBoxEngine::updateState( const QPaintDevice* object, bool value )
+    bool ToolBoxEngine::updateState(const QPaintDevice *object, bool value)
     {
-        PaintDeviceDataMap<WidgetStateData>::Value data( ToolBoxEngine::data( object ) );
-        return ( data && data.data()->updateState( value ) );
+        PaintDeviceDataMap<WidgetStateData>::Value data(ToolBoxEngine::data(object));
+        return (data && data.data()->updateState(value));
     }
 
     //____________________________________________________________
-    bool ToolBoxEngine::isAnimated( const QPaintDevice* object )
+    bool ToolBoxEngine::isAnimated(const QPaintDevice *object)
     {
-
-        PaintDeviceDataMap<WidgetStateData>::Value data( ToolBoxEngine::data( object ) );
-        return ( data && data.data()->animation() && data.data()->animation().data()->isRunning() );
-
+        PaintDeviceDataMap<WidgetStateData>::Value data(ToolBoxEngine::data(object));
+        return (data && data.data()->animation() && data.data()->animation().data()->isRunning());
     }
-
 }

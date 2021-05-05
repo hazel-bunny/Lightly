@@ -22,7 +22,6 @@
 
 #include <KPluginFactory>
 
-
 K_PLUGIN_FACTORY(
     LightlyStyleConfigFactory,
     registerPlugin<Lightly::ConfigurationModule>(QStringLiteral("kcmodule"));
@@ -32,14 +31,17 @@ K_PLUGIN_FACTORY(
 
 namespace Lightly
 {
-
     //_______________________________________________________________________
-    ConfigurationModule::ConfigurationModule(QWidget *parent, const QVariantList &args):
+    ConfigurationModule::ConfigurationModule(QWidget *parent, const QVariantList &args)
+        :
         KCModule(parent, args)
     {
         setLayout(new QVBoxLayout(this));
-        layout()->addWidget( m_config = new StyleConfig( this ) );
-        connect(m_config, static_cast<void (StyleConfig::*)(bool)>(&StyleConfig::changed), this, static_cast<void (KCModule::*)(bool)>(&KCModule::changed));
+        layout()->addWidget(m_config = new StyleConfig(this));
+        connect(m_config,
+                static_cast<void (StyleConfig::*)(bool)>(&StyleConfig::changed),
+                this,
+                static_cast<void (KCModule::*)(bool)>(&KCModule::changed));
     }
 
     //_______________________________________________________________________
@@ -62,5 +64,4 @@ namespace Lightly
         m_config->save();
         KCModule::save();
     }
-
 }

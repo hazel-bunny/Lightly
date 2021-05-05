@@ -26,22 +26,21 @@
 
 namespace Lightly
 {
-
     class Animation: public QPropertyAnimation
     {
+    Q_OBJECT
 
-        Q_OBJECT
-
-        public:
+    public:
 
         //* convenience
         using Pointer = WeakPointer<Animation>;
 
         //* constructor
-        Animation( int duration, QObject* parent ):
-            QPropertyAnimation( parent )
-        { 
-            setDuration( duration );
+        Animation(int duration, QObject *parent)
+            :
+            QPropertyAnimation(parent)
+        {
+            setDuration(duration);
             setEasingCurve(QEasingCurve::InQuint);
         }
 
@@ -52,12 +51,10 @@ namespace Lightly
         //* restart
         void restart()
         {
-            if( isRunning() ) stop();
+            if (isRunning()) { stop(); }
             start();
         }
-
     };
-
 }
 
 #endif

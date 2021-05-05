@@ -35,23 +35,21 @@
 
 namespace Lightly
 {
-
     //* generic data
     class TransitionData: public QObject
     {
+    Q_OBJECT
 
-        Q_OBJECT
-
-        public:
+    public:
 
         //* constructor
-        TransitionData( QObject* parent, QWidget* target, int );
+        TransitionData(QObject *parent, QWidget *target, int);
 
         //* destructor
         virtual ~TransitionData();
 
         //* enability
-        virtual void setEnabled( bool value )
+        virtual void setEnabled(bool value)
         { _enabled = value; }
 
         //* enability
@@ -59,32 +57,31 @@ namespace Lightly
         { return _enabled; }
 
         //* duration
-        virtual void setDuration( int duration )
+        virtual void setDuration(int duration)
         {
-            if( _transition )
-            { _transition.data()->setDuration( duration ); }
+            if (_transition) { _transition.data()->setDuration(duration); }
         }
 
         //* max render time
-        void setMaxRenderTime( int value )
+        void setMaxRenderTime(int value)
         { _maxRenderTime = value; }
 
         //* max renderTime
-        const int& maxRenderTime() const
+        const int &maxRenderTime() const
         { return _maxRenderTime; }
 
         //* start clock
         void startClock()
         {
-            if( !_clock.isValid() ) _clock.start();
-            else _clock.restart();
+            if (!_clock.isValid()) { _clock.start(); }
+            else { _clock.restart(); }
         }
 
         //* check if rendering is two slow
         bool slow() const
-        { return !( !_clock.isValid() || _clock.elapsed() <= maxRenderTime() ); }
+        { return !(!_clock.isValid() || _clock.elapsed() <= maxRenderTime()); }
 
-        protected Q_SLOTS:
+    protected Q_SLOTS:
 
         //* initialize animation
         virtual bool initializeAnimation() = 0;
@@ -92,24 +89,24 @@ namespace Lightly
         //* animate
         virtual bool animate() = 0;
 
-        protected:
+    protected:
 
         //* returns true if one parent matches given class name
-        inline bool hasParent( const QWidget*, const char* ) const;
+        inline bool hasParent(const QWidget *, const char *) const;
 
         //* transition widget
-        virtual const TransitionWidget::Pointer& transition() const
+        virtual const TransitionWidget::Pointer &transition() const
         { return _transition; }
 
         //* used to avoid recursion when grabbing widgets
-        void setRecursiveCheck( bool value )
+        void setRecursiveCheck(bool value)
         { _recursiveCheck = value; }
 
         //* used to avoid recursion when grabbing widgets
         bool recursiveCheck() const
         { return _recursiveCheck; }
 
-        private:
+    private:
 
         //* enability
         bool _enabled = true;
@@ -126,19 +123,18 @@ namespace Lightly
 
         //* animation handling
         TransitionWidget::Pointer _transition;
-
     };
 
     //_____________________________________________________________________________________
-    bool TransitionData::hasParent( const QWidget* widget, const char* className ) const
+    bool TransitionData::hasParent(const QWidget *widget, const char *className) const
     {
-        if( !widget ) return false;
-        for( QWidget* parent = widget->parentWidget(); parent; parent = parent->parentWidget() )
-        { if( parent->inherits( className ) ) return true; }
+        if (!widget) { return false; }
+        for (QWidget *parent = widget->parentWidget(); parent; parent = parent->parentWidget()) {
+            if (parent->inherits(className)) { return true; }
+        }
 
         return false;
     }
-
 }
 
 #endif

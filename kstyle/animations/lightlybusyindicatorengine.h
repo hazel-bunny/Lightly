@@ -27,26 +27,23 @@
 
 namespace Lightly
 {
-
     //* handles progress bar animations
     class BusyIndicatorEngine: public BaseEngine
     {
-
-        Q_OBJECT
+    Q_OBJECT
 
         //* declare opacity property
-        Q_PROPERTY( int value READ value WRITE setValue )
+        Q_PROPERTY(int value READ value WRITE setValue)
 
-        public:
+    public:
 
         //* constructor
-        explicit BusyIndicatorEngine( QObject* );
+        explicit BusyIndicatorEngine(QObject *);
 
         //*@name accessors
         //@{
-
         //* true if widget is animated
-        bool isAnimated( const QObject* );
+        bool isAnimated(const QObject *);
 
         //* value
         int value() const
@@ -56,32 +53,31 @@ namespace Lightly
 
         //*@name modifiers
         //@{
-
         //* register progressbar
-        bool registerWidget( QObject* );
+        bool registerWidget(QObject *);
 
         //* duration
-        void setDuration( int ) override;
+        void setDuration(int) override;
 
         //* set object as animated
-        void setAnimated( const QObject*, bool );
+        void setAnimated(const QObject *, bool);
 
         //* opacity
-        void setValue( int value );
+        void setValue(int value);
 
         //@}
 
-        public Q_SLOTS:
+    public Q_SLOTS:
 
         //* remove widget from map
-        bool unregisterWidget( QObject* ) override;
+        bool unregisterWidget(QObject *) override;
 
-        protected:
+    protected:
 
         //* returns data associated to widget
-        DataMap<BusyIndicatorData>::Value data( const QObject* );
+        DataMap<BusyIndicatorData>::Value data(const QObject *);
 
-        private:
+    private:
 
         //* map widgets to progressbar data
         DataMap<BusyIndicatorData> _data;
@@ -91,9 +87,7 @@ namespace Lightly
 
         //* value
         int _value = 0;
-
     };
-
 }
 
 #endif

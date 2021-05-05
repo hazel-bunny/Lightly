@@ -42,52 +42,49 @@ namespace Lightly
 {
     class BlurHelper: public QObject
     {
-        Q_OBJECT
+    Q_OBJECT
 
-        public:
+    public:
 
         //! constructor
-        BlurHelper( QObject* );
+        BlurHelper(QObject *);
 
         //! register widget
-        void registerWidget( QWidget*, const bool isDolphin );
+        void registerWidget(QWidget *, const bool isDolphin);
 
         //! register widget
-        void unregisterWidget( QWidget* );
+        void unregisterWidget(QWidget *);
 
         //! event filter
-        bool eventFilter( QObject*, QEvent* ) override;
-        
+        bool eventFilter(QObject *, QEvent *) override;
+
         //! force update
-        void forceUpdate( QWidget* widget )
-        { if( widget->isWindow() ) update( widget ); }
-        
-        void setTranslucentTitlebar( bool value )
+        void forceUpdate(QWidget *widget)
+        { if (widget->isWindow()) { update(widget); }}
+
+        void setTranslucentTitlebar(bool value)
         { _translucentTitlebar = value; }
 
-        protected:
+    protected:
 
         //! install event filter to object, in a unique way
-        void addEventFilter( QObject* object )
+        void addEventFilter(QObject *object)
         {
-            object->removeEventFilter( this );
-            object->installEventFilter( this );
+            object->removeEventFilter(this);
+            object->installEventFilter(this);
         }
-        
+
         //! handle blur region
-        QRegion blurRegion (QWidget* widget) const;
+        QRegion blurRegion(QWidget *widget) const;
 
         //! update blur regions for given widget
-        void update( QWidget* ) const;
-        
-        private:
-        
+        void update(QWidget *) const;
+
+    private:
+
         bool _isDolphin = false;
         bool _translucentTitlebar = false;
-            
-
     };
-
 }
 
 #endif

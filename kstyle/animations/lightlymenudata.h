@@ -32,7 +32,6 @@
 
 namespace Lightly
 {
-
     //* menubar data
     /*!
     most members are identical to menubar data. The one that are not are
@@ -40,36 +39,34 @@ namespace Lightly
     */
     class MenuDataV1: public MenuBarDataV1
     {
+    Q_OBJECT
 
-        Q_OBJECT
-
-        public:
+    public:
 
         //* constructor
-        MenuDataV1( QObject* parent, QWidget* target, int duration ):
-        MenuBarDataV1( parent, target, duration )
+        MenuDataV1(QObject *parent, QWidget *target, int duration)
+            :
+            MenuBarDataV1(parent, target, duration)
         {}
 
-        protected:
+    protected:
 
         //* menubar enterEvent
-        void enterEvent( const QObject* object ) override
-        { MenuBarDataV1::enterEvent<QMenu>( object ); }
+        void enterEvent(const QObject *object) override
+        { MenuBarDataV1::enterEvent<QMenu>(object); }
 
         //* menubar enterEvent
-        void leaveEvent( const QObject* object ) override
-        { MenuBarDataV1::leaveEvent<QMenu>( object ); }
+        void leaveEvent(const QObject *object) override
+        { MenuBarDataV1::leaveEvent<QMenu>(object); }
 
         //* menubar mouseMoveEvent
-        void mouseMoveEvent( const QObject* object ) override
-        { MenuBarDataV1::mouseMoveEvent<QMenu>( object ); }
+        void mouseMoveEvent(const QObject *object) override
+        { MenuBarDataV1::mouseMoveEvent<QMenu>(object); }
 
         //* menubar mousePressEvent
-        void mousePressEvent( const QObject* object ) override
-        { MenuBarDataV1::mousePressEvent<QMenu>( object ); }
-
+        void mousePressEvent(const QObject *object) override
+        { MenuBarDataV1::mousePressEvent<QMenu>(object); }
     };
-
 }
 
 #endif

@@ -27,22 +27,19 @@
 
 namespace Lightly
 {
-
     //*@name convenience typedef
     //@{
+    //* scoped pointer convenience typedef
+    template<typename T> using WeakPointer = QPointer<T>;
 
     //* scoped pointer convenience typedef
-    template <typename T> using WeakPointer = QPointer<T>;
-
-    //* scoped pointer convenience typedef
-    template <typename T> using ScopedPointer = QScopedPointer<T, QScopedPointerPodDeleter>;
+    template<typename T> using ScopedPointer = QScopedPointer<T, QScopedPointerPodDeleter>;
 
     //@}
 
     //* metrics
     enum Metrics
     {
-
         // frames
         Frame_FrameWidth = 5,
         //Frame_FrameRadius = 6,
@@ -84,7 +81,7 @@ namespace Lightly
         ToolButton_InlineIndicatorWidth = 12,
 
         // checkboxes and radio buttons
-        CheckBox_Size = 14 + ( Frame_FrameWidth - 1 )*2,
+        CheckBox_Size = 14 + (Frame_FrameWidth - 1) * 2,
         CheckBox_FocusMarginWidth = 2,
         CheckBox_ItemSpacing = 4,
 
@@ -96,9 +93,9 @@ namespace Lightly
         ScrollBar_Extend = 21,
         ScrollBar_SliderWidth = 6,
         ScrollBar_MinSliderHeight = 20,
-        ScrollBar_NoButtonHeight = (ScrollBar_Extend-ScrollBar_SliderWidth)/2,
+        ScrollBar_NoButtonHeight = (ScrollBar_Extend - ScrollBar_SliderWidth) / 2,
         ScrollBar_SingleButtonHeight = ScrollBar_Extend,
-        ScrollBar_DoubleButtonHeight = 2*ScrollBar_Extend,
+        ScrollBar_DoubleButtonHeight = 2 * ScrollBar_Extend,
 
         // toolbars
         ToolBar_FrameWidth = 2,
@@ -157,7 +154,6 @@ namespace Lightly
 
         // shadow dimensions
         Shadow_Overlap = 2
-
     };
 
     //* standard pen widths
@@ -175,11 +171,11 @@ namespace Lightly
 
         // The standard pen stroke width for shadows.
         static constexpr int Shadow = 1;
-        
+
         // A value for pen width arguments to make it clear that there is no pen stroke
         static constexpr int NoPen = 0;
     }
-    
+
     //* animation mode
     enum AnimationMode
     {
@@ -191,16 +187,16 @@ namespace Lightly
     };
 
     Q_DECLARE_FLAGS(AnimationModes, AnimationMode)
-    
+
     //* extra animation parameters for custom widget animations
     enum AnimationParameter
     {
         AnimationDefaut = 0,
         AnimationForwardOnly = 0x1,
         AnimationOutBack = 0x2,
-        AnimationLongDuration = 0x4 
+        AnimationLongDuration = 0x4
     };
-    
+
     Q_DECLARE_FLAGS(AnimationParameters, AnimationParameter)
 
     //* corners
@@ -210,14 +206,14 @@ namespace Lightly
         CornerTopRight = 0x2,
         CornerBottomLeft = 0x4,
         CornerBottomRight = 0x8,
-        CornersTop = CornerTopLeft|CornerTopRight,
-        CornersBottom = CornerBottomLeft|CornerBottomRight,
-        CornersLeft = CornerTopLeft|CornerBottomLeft,
-        CornersRight = CornerTopRight|CornerBottomRight,
-        AllCorners = CornerTopLeft|CornerTopRight|CornerBottomLeft|CornerBottomRight
+        CornersTop = CornerTopLeft | CornerTopRight,
+        CornersBottom = CornerBottomLeft | CornerBottomRight,
+        CornersLeft = CornerTopLeft | CornerBottomLeft,
+        CornersRight = CornerTopRight | CornerBottomRight,
+        AllCorners = CornerTopLeft | CornerTopRight | CornerBottomLeft | CornerBottomRight
     };
 
-    Q_DECLARE_FLAGS( Corners, Corner )
+    Q_DECLARE_FLAGS(Corners, Corner)
 
     //* sides
     enum Side
@@ -226,10 +222,10 @@ namespace Lightly
         SideTop = 0x2,
         SideRight = 0x4,
         SideBottom = 0x8,
-        AllSides = SideLeft|SideTop|SideRight|SideBottom
+        AllSides = SideLeft | SideTop | SideRight | SideBottom
     };
 
-    Q_DECLARE_FLAGS( Sides, Side )
+    Q_DECLARE_FLAGS(Sides, Side)
 
     //* checkbox state
     enum CheckBoxState
@@ -267,12 +263,11 @@ namespace Lightly
         ButtonMinimize,
         ButtonRestore
     };
-
 }
 
-Q_DECLARE_OPERATORS_FOR_FLAGS( Lightly::AnimationModes )
-Q_DECLARE_OPERATORS_FOR_FLAGS( Lightly::AnimationParameters )
-Q_DECLARE_OPERATORS_FOR_FLAGS( Lightly::Corners )
-Q_DECLARE_OPERATORS_FOR_FLAGS( Lightly::Sides )
+Q_DECLARE_OPERATORS_FOR_FLAGS(Lightly::AnimationModes)
+Q_DECLARE_OPERATORS_FOR_FLAGS(Lightly::AnimationParameters)
+Q_DECLARE_OPERATORS_FOR_FLAGS(Lightly::Corners)
+Q_DECLARE_OPERATORS_FOR_FLAGS(Lightly::Sides)
 
 #endif

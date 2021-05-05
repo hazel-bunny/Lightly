@@ -32,20 +32,18 @@
 
 namespace Lightly
 {
-
     class ShadowHelper;
 
     //* frame shadow
     /** this allows the shadow to be painted over the widgets viewport */
     class MdiWindowShadow: public QWidget
     {
+    Q_OBJECT
 
-        Q_OBJECT
-
-        public:
+    public:
 
         //* constructor
-        explicit MdiWindowShadow( QWidget*, const TileSet & );
+        explicit MdiWindowShadow(QWidget *, const TileSet &);
 
         //* update geometry
         void updateGeometry();
@@ -54,116 +52,108 @@ namespace Lightly
         void updateZOrder();
 
         //* set associated window
-        void setWidget( QWidget* value )
+        void setWidget(QWidget *value)
         { _widget = value; }
 
         //* associated window
-        QWidget* widget() const
+        QWidget *widget() const
         { return _widget; }
 
-        protected:
+    protected:
 
         //* painting
         void paintEvent(QPaintEvent *) override;
 
-        private:
+    private:
 
         //* associated widget
-        QWidget* _widget = nullptr;
+        QWidget *_widget = nullptr;
 
         //* tileset rect, used for painting
         QRect _shadowTilesRect;
 
         //* tileset used to draw shadow
         TileSet _shadowTiles;
-
     };
 
     //* shadow manager
     class MdiWindowShadowFactory: public QObject
     {
+    Q_OBJECT
 
-        Q_OBJECT
-
-        public:
+    public:
 
         //* constructor
-        explicit MdiWindowShadowFactory( QObject* );
+        explicit MdiWindowShadowFactory(QObject *);
 
         //* set shadow helper
-        void setShadowHelper( ShadowHelper* shadowHelper )
+        void setShadowHelper(ShadowHelper *shadowHelper)
         { _shadowHelper = shadowHelper; }
 
         //* register widget
-        bool registerWidget( QWidget* );
+        bool registerWidget(QWidget *);
 
         //* unregister
-        void unregisterWidget( QWidget* );
+        void unregisterWidget(QWidget *);
 
         //* true if widget is registered
-        bool isRegistered( const QObject* widget ) const
-        { return _registeredWidgets.contains( widget ); }
+        bool isRegistered(const QObject *widget) const
+        { return _registeredWidgets.contains(widget); }
 
         //* event filter
-        bool eventFilter( QObject*, QEvent*) override;
+        bool eventFilter(QObject *, QEvent *) override;
 
-        protected:
+    protected:
 
         //* find shadow matching a given object
-        MdiWindowShadow* findShadow( QObject* ) const;
+        MdiWindowShadow *findShadow(QObject *) const;
 
         //* install shadows on given widget
-        void installShadow( QObject* );
+        void installShadow(QObject *);
 
         //* remove shadows from widget
-        void removeShadow( QObject* );
+        void removeShadow(QObject *);
 
         //* hide shadows
-        void hideShadows( QObject* object ) const
+        void hideShadows(QObject *object) const
         {
-            if( MdiWindowShadow* windowShadow = findShadow( object ) )
-            { windowShadow->hide(); }
+            if (MdiWindowShadow *windowShadow = findShadow(object)) { windowShadow->hide(); }
         }
 
         //* update ZOrder
-        void updateShadowZOrder( QObject* object ) const
+        void updateShadowZOrder(QObject *object) const
         {
-            if( MdiWindowShadow* windowShadow = findShadow( object ) )
-            {
-                if( !windowShadow->isVisible() ) windowShadow->show();
+            if (MdiWindowShadow *windowShadow = findShadow(object)) {
+                if (!windowShadow->isVisible()) { windowShadow->show(); }
                 windowShadow->updateZOrder();
             }
         }
 
         //* update shadows geometry
-        void updateShadowGeometry( QObject* object ) const
+        void updateShadowGeometry(QObject *object) const
         {
-            if( MdiWindowShadow* windowShadow = findShadow( object ) )
-            { windowShadow->updateGeometry(); }
+            if (MdiWindowShadow *windowShadow = findShadow(object)) { windowShadow->updateGeometry(); }
         }
 
         //* update shadows
-        void update( QObject* object ) const
+        void update(QObject *object) const
         {
-            if( MdiWindowShadow* windowShadow = findShadow( object ) )
-            { windowShadow->update(); }
+            if (MdiWindowShadow *windowShadow = findShadow(object)) { windowShadow->update(); }
         }
 
-        protected Q_SLOTS:
+    protected Q_SLOTS:
 
         //* triggered by object destruction
-        void widgetDestroyed( QObject* );
+        void widgetDestroyed(QObject *);
 
-        private:
+    private:
 
         //* set of registered widgets
-        QSet<const QObject*> _registeredWidgets;
+        QSet<const QObject *> _registeredWidgets;
 
         //* shadow helper used to generate the shadows
         QPointer<ShadowHelper> _shadowHelper;
-
     };
-
 }
 
 #endif

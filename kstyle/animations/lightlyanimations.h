@@ -37,135 +37,131 @@
 
 namespace Lightly
 {
-
     //* stores engines
     class Animations: public QObject
     {
+    Q_OBJECT
 
-        Q_OBJECT
-
-        public:
+    public:
 
         //* constructor
-        explicit Animations( QObject* );
+        explicit Animations(QObject *);
 
         //* register animations corresponding to given widget, depending on its type.
-        void registerWidget( QWidget* widget ) const;
+        void registerWidget(QWidget *widget) const;
 
         /** unregister all animations associated to a widget */
-        void unregisterWidget( QWidget* widget ) const;
+        void unregisterWidget(QWidget *widget) const;
 
         //* enability engine
-        WidgetStateEngine& widgetEnabilityEngine() const
+        WidgetStateEngine &widgetEnabilityEngine() const
         { return *_widgetEnabilityEngine; }
 
         //* abstractButton engine
-        WidgetStateEngine& widgetStateEngine() const
+        WidgetStateEngine &widgetStateEngine() const
         { return *_widgetStateEngine; }
 
         //* editable combobox arrow hover engine
-        WidgetStateEngine& comboBoxEngine() const
+        WidgetStateEngine &comboBoxEngine() const
         { return *_comboBoxEngine; }
 
         //* Tool buttons arrow hover engine
-        WidgetStateEngine& toolButtonEngine() const
+        WidgetStateEngine &toolButtonEngine() const
         { return *_toolButtonEngine; }
 
         //* item view engine
-        WidgetStateEngine& inputWidgetEngine() const
+        WidgetStateEngine &inputWidgetEngine() const
         { return *_inputWidgetEngine; }
 
         //* busy indicator
-        BusyIndicatorEngine& busyIndicatorEngine() const
+        BusyIndicatorEngine &busyIndicatorEngine() const
         { return *_busyIndicatorEngine; }
 
         //* header view engine
-        HeaderViewEngine& headerViewEngine() const
+        HeaderViewEngine &headerViewEngine() const
         { return *_headerViewEngine; }
-        
+
         //* menu engine
-        MenuBaseEngine& menuEngine( void ) const
+        MenuBaseEngine &menuEngine(void) const
         { return *_menuEngine; }
 
         //* scrollbar engine
-        ScrollBarEngine& scrollBarEngine() const
+        ScrollBarEngine &scrollBarEngine() const
         { return *_scrollBarEngine; }
 
         //* dial engine
-        DialEngine& dialEngine() const
+        DialEngine &dialEngine() const
         { return *_dialEngine; }
 
         //* spinbox engine
-        SpinBoxEngine& spinBoxEngine() const
+        SpinBoxEngine &spinBoxEngine() const
         { return *_spinBoxEngine; }
 
         //* tabbar
-        TabBarEngine& tabBarEngine() const
+        TabBarEngine &tabBarEngine() const
         { return *_tabBarEngine; }
 
         //* toolbox
-        ToolBoxEngine& toolBoxEngine() const
+        ToolBoxEngine &toolBoxEngine() const
         { return *_toolBoxEngine; }
 
         //* setup engines
         void setupEngines();
 
-        protected Q_SLOTS:
+    protected Q_SLOTS:
 
         //* enregister engine
-        void unregisterEngine( QObject* );
-        private:
+        void unregisterEngine(QObject *);
+    private:
 
         //* register new engine
-        void registerEngine( BaseEngine* );
+        void registerEngine(BaseEngine *);
 
         //* busy indicator
-        BusyIndicatorEngine* _busyIndicatorEngine = nullptr;
+        BusyIndicatorEngine *_busyIndicatorEngine = nullptr;
 
         //* headerview hover effect
-        HeaderViewEngine* _headerViewEngine = nullptr;
+        HeaderViewEngine *_headerViewEngine = nullptr;
 
         //* widget enability engine
-        WidgetStateEngine* _widgetEnabilityEngine = nullptr;
+        WidgetStateEngine *_widgetEnabilityEngine = nullptr;
 
         //* abstract button engine
-        WidgetStateEngine* _widgetStateEngine = nullptr;
+        WidgetStateEngine *_widgetStateEngine = nullptr;
 
         //* editable combobox arrow hover effect
-        WidgetStateEngine* _comboBoxEngine = nullptr;
+        WidgetStateEngine *_comboBoxEngine = nullptr;
 
         //* menu toolbutton arrow hover effect
-        WidgetStateEngine* _toolButtonEngine = nullptr;
+        WidgetStateEngine *_toolButtonEngine = nullptr;
 
         //* item view engine
-        WidgetStateEngine* _inputWidgetEngine = nullptr;
+        WidgetStateEngine *_inputWidgetEngine = nullptr;
 
         //* scrollbar engine
-        ScrollBarEngine* _scrollBarEngine = nullptr;
-        
+        ScrollBarEngine *_scrollBarEngine = nullptr;
+
         //* menu engine
-        MenuBaseEngine* _menuEngine = nullptr;
+        MenuBaseEngine *_menuEngine = nullptr;
 
         //* dial engine
-        DialEngine* _dialEngine = nullptr;
+        DialEngine *_dialEngine = nullptr;
 
         //* spinbox engine
-        SpinBoxEngine* _spinBoxEngine = nullptr;
+        SpinBoxEngine *_spinBoxEngine = nullptr;
 
         //* stacked widget engine
-        StackedWidgetEngine* _stackedWidgetEngine = nullptr;
+        StackedWidgetEngine *_stackedWidgetEngine = nullptr;
 
         //* tabbar engine
-        TabBarEngine* _tabBarEngine = nullptr;
+        TabBarEngine *_tabBarEngine = nullptr;
 
         //* toolbar engine
-        ToolBoxEngine* _toolBoxEngine = nullptr;
+        ToolBoxEngine *_toolBoxEngine = nullptr;
 
         //* keep list of existing engines
-        QList< BaseEngine::Pointer > _engines;
-
+        QList<BaseEngine::Pointer> _engines;
     };
-
 }
 
 #endif

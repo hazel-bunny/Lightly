@@ -30,13 +30,11 @@
 
 namespace Lightly
 {
-
     class SettingsProvider: public QObject
     {
+    Q_OBJECT
 
-        Q_OBJECT
-
-        public:
+    public:
 
         //* destructor
         ~SettingsProvider();
@@ -47,12 +45,12 @@ namespace Lightly
         //* internal settings for given decoration
         InternalSettingsPtr internalSettings(Decoration *) const;
 
-        public Q_SLOTS:
+    public Q_SLOTS:
 
         //* reconfigure
         void reconfigure();
 
-        private:
+    private:
 
         //* constructor
         SettingsProvider();
@@ -68,9 +66,7 @@ namespace Lightly
 
         //* singleton
         static SettingsProvider *s_self;
-
     };
-
 }
 
 #endif

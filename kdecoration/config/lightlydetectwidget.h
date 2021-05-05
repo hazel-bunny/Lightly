@@ -43,50 +43,48 @@
 
 namespace Lightly
 {
-
-    class DetectDialog : public QDialog
+    class DetectDialog: public QDialog
     {
+    Q_OBJECT
 
-        Q_OBJECT
-
-        public:
+    public:
 
         //* constructor
-        explicit DetectDialog( QWidget* );
+        explicit DetectDialog(QWidget *);
 
         //* read window properties or select one from mouse grab
-        void detect( WId window );
+        void detect(WId window);
 
         //* selected class
         QByteArray selectedClass() const;
 
         //* window information
-        const KWindowInfo& windowInfo() const
+        const KWindowInfo &windowInfo() const
         { return *(m_info.data()); }
 
         //* exception type
         InternalSettings::EnumExceptionType exceptionType() const
         {
-            if( m_ui.windowClassCheckBox->isChecked() ) return InternalSettings::ExceptionWindowClassName;
-            else if( m_ui.windowTitleCheckBox->isChecked() ) return InternalSettings::ExceptionWindowTitle;
-            else return InternalSettings::ExceptionWindowClassName;
+            if (m_ui.windowClassCheckBox->isChecked()) { return InternalSettings::ExceptionWindowClassName; }
+            else if (m_ui.windowTitleCheckBox->isChecked()) { return InternalSettings::ExceptionWindowTitle; }
+            else { return InternalSettings::ExceptionWindowClassName; }
         }
 
-        Q_SIGNALS:
+    Q_SIGNALS:
 
-        void detectionDone( bool );
+        void detectionDone(bool);
 
-        protected:
+    protected:
 
-        bool eventFilter( QObject* o, QEvent* e ) override;
+        bool eventFilter(QObject *o, QEvent *e) override;
 
-        private:
+    private:
 
         //* select window from grab
         void selectWindow();
 
         //* read window properties
-        void readWindow( WId window );
+        void readWindow(WId window);
 
         //* find window under cursor
         WId findWindow();
@@ -98,16 +96,14 @@ namespace Lightly
         Ui::LightlyDetectWidget m_ui;
 
         //* invisible dialog used to grab mouse
-        QDialog* m_grabber = nullptr;
+        QDialog *m_grabber = nullptr;
 
         //* current window information
         QScopedPointer<KWindowInfo> m_info;
 
         //* wm state atom
         quint32 m_wmStateAtom = 0;
-
     };
-
 } // namespace
 
 #endif

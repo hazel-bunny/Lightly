@@ -50,59 +50,56 @@ namespace KWayland
 
 namespace Lightly
 {
-
     class WindowManager: public QObject
     {
+    Q_OBJECT
 
-        Q_OBJECT
-
-        public:
+    public:
 
         //* constructor
-        explicit WindowManager( QObject* );
+        explicit WindowManager(QObject *);
 
         //* initialize
         /** read relevant options from config */
         void initialize();
 
         //* register widget
-        void registerWidget( QWidget* );
+        void registerWidget(QWidget *);
 
-        #if LIGHTLY_HAVE_QTQUICK
+#if LIGHTLY_HAVE_QTQUICK
         //* register quick item
-        void registerQuickItem( QQuickItem* );
-        #endif
+        void registerQuickItem(QQuickItem *);
+#endif
 
         //* unregister widget
-        void unregisterWidget( QWidget* );
+        void unregisterWidget(QWidget *);
 
         //* event filter [reimplemented]
-        bool eventFilter( QObject*, QEvent* ) override;
+        bool eventFilter(QObject *, QEvent *) override;
 
-        protected:
+    protected:
 
         //* timer event,
         /** used to start drag if button is pressed for a long enough time */
-        void timerEvent( QTimerEvent* ) override;
+        void timerEvent(QTimerEvent *) override;
 
         //* mouse press event
-        bool mousePressEvent( QObject*, QEvent* );
+        bool mousePressEvent(QObject *, QEvent *);
 
         //* mouse move event
-        bool mouseMoveEvent( QObject*, QEvent* );
+        bool mouseMoveEvent(QObject *, QEvent *);
 
         //* mouse release event
-        bool mouseReleaseEvent( QObject*, QEvent* );
+        bool mouseReleaseEvent(QObject *, QEvent *);
 
         //*@name configuration
         //@{
-
         //* enable state
         bool enabled() const
         { return _enabled; }
 
         //* enable state
-        void setEnabled( bool value )
+        void setEnabled(bool value)
         { _enabled = value; }
 
         //* returns true if window manager is used for moving
@@ -110,7 +107,7 @@ namespace Lightly
         { return supportWMMoveResize() && _useWMMoveResize; }
 
         //* use window manager for moving, when available
-        void setUseWMMoveResize( bool value )
+        void setUseWMMoveResize(bool value)
         { _useWMMoveResize = value; }
 
         //* drag mode
@@ -118,15 +115,15 @@ namespace Lightly
         { return _dragMode; }
 
         //* drag mode
-        void setDragMode( int value )
+        void setDragMode(int value)
         { _dragMode = value; }
 
         //* drag distance (pixels)
-        void setDragDistance( int value )
+        void setDragDistance(int value)
         { _dragDistance = value; }
 
         //* drag delay (msec)
-        void setDragDelay( int value )
+        void setDragDelay(int value)
         { _dragDelay = value; }
 
         //* set list of whiteListed widgets
@@ -152,44 +149,43 @@ namespace Lightly
         //@}
 
         //* returns true if widget is dragable
-        bool isDragable( QWidget* );
+        bool isDragable(QWidget *);
 
         //* returns true if widget is dragable
-        bool isBlackListed( QWidget* );
+        bool isBlackListed(QWidget *);
 
         //* returns true if widget is dragable
-        bool isWhiteListed( QWidget* ) const;
+        bool isWhiteListed(QWidget *) const;
 
         //* returns true if drag can be started from current widget
-        bool canDrag( QWidget* );
+        bool canDrag(QWidget *);
 
         //* returns true if drag can be started from current widget and position
         /** child at given position is passed as second argument */
-        bool canDrag( QWidget*, QWidget*, const QPoint& );
+        bool canDrag(QWidget *, QWidget *, const QPoint &);
 
         //* reset drag
         void resetDrag();
 
         //* start drag
-        void startDrag( QWindow*, const QPoint& );
+        void startDrag(QWindow *, const QPoint &);
 
         //* X11 specific implementation for startDrag
-        void startDragX11( QWindow*, const QPoint& );
+        void startDragX11(QWindow *, const QPoint &);
 
         //* Wayland specific implementation for startDrag
-        void startDragWayland( QWindow*, const QPoint& );
+        void startDragWayland(QWindow *, const QPoint &);
 
         //* returns true if window manager is used for moving
         /** right now this is true only for X11 */
         bool supportWMMoveResize() const;
 
         //* utility function
-        bool isDockWidgetTitle( const QWidget* ) const;
+        bool isDockWidgetTitle(const QWidget *) const;
 
         //*@name lock
         //@{
-
-        void setLocked( bool value )
+        void setLocked(bool value)
         { _locked = value; }
 
         //* lock
@@ -199,9 +195,10 @@ namespace Lightly
         //@}
 
         //* returns first widget matching given class, or nullptr if none
-        template<typename T> T findParent( const QWidget* ) const;
+        template<typename T>
+        T findParent(const QWidget *) const;
 
-        private:
+    private:
 
         //* enability
         bool _enabled = true;
@@ -223,33 +220,32 @@ namespace Lightly
         //* wrapper for exception id
         class ExceptionId
         {
-            public:
+        public:
 
             //* constructor
-            explicit ExceptionId( const QString& value )
+            explicit ExceptionId(const QString &value)
             {
-                const QStringList args( value.split( QChar::fromLatin1( '@' ) ) );
-                if( args.isEmpty() ) return;
+                const QStringList args(value.split(QChar::fromLatin1('@')));
+                if (args.isEmpty()) { return; }
                 _exception.second = args[0].trimmed();
-                if( args.size()>1 ) _exception.first = args[1].trimmed();
+                if (args.size() > 1) { _exception.first = args[1].trimmed(); }
             }
 
-            const QString& appName() const
+            const QString &appName() const
             { return _exception.first; }
 
-            const QString& className() const
+            const QString &className() const
             { return _exception.second; }
 
-            private:
+        private:
 
             QPair<QString, QString> _exception;
 
-            friend uint qHash( const ExceptionId& value )
+            friend uint qHash(const ExceptionId &value)
             { return qHash(value._exception); }
 
-            friend bool operator == ( const ExceptionId& lhs, const ExceptionId& rhs )
+            friend bool operator==(const ExceptionId &lhs, const ExceptionId &rhs)
             { return lhs._exception == rhs._exception; }
-
         };
 
         //* exception set
@@ -280,9 +276,9 @@ namespace Lightly
         /** Weak pointer is used in case the target gets deleted while drag is in progress */
         WeakPointer<QWidget> _target;
 
-        #if LIGHTLY_HAVE_QTQUICK
+#if LIGHTLY_HAVE_QTQUICK
         WeakPointer<QQuickItem> _quickTarget;
-        #endif
+#endif
 
         //* true if drag is about to start
         bool _dragAboutToStart = false;
@@ -298,37 +294,35 @@ namespace Lightly
         bool _cursorOverride = false;
 
         //* application event filter
-        QObject* _appEventFilter = nullptr;
+        QObject *_appEventFilter = nullptr;
 
-        #if LIGHTLY_HAVE_KWAYLAND
+#if LIGHTLY_HAVE_KWAYLAND
 
         //* The Wayland seat object which needs to be passed to move requests.
-        KWayland::Client::Seat* _seat = nullptr;
+        KWayland::Client::Seat *_seat = nullptr;
 
         //* The Wayland pointer object where we get pointer events on.
-        KWayland::Client::Pointer* _pointer = nullptr;
+        KWayland::Client::Pointer *_pointer = nullptr;
 
         //* latest serial which needs to be passed to the move requests.
         quint32 _waylandSerial = 0;
-        #endif
+#endif
 
         //* allow access of all private members to the app event filter
         friend class AppEventFilter;
-
     };
 
     //____________________________________________________________________
     template<typename T>
-        T WindowManager::findParent( const QWidget* widget ) const
+    T WindowManager::findParent(const QWidget *widget) const
     {
-
-        if( !widget ) return nullptr;
-        for( QWidget* parent = widget->parentWidget(); parent; parent = parent->parentWidget() )
-        { if( T cast = qobject_cast<T>(parent) ) return cast; }
+        if (!widget) { return nullptr; }
+        for (QWidget *parent = widget->parentWidget(); parent; parent = parent->parentWidget()) {
+            if (T cast = qobject_cast<T>(parent)) { return cast; }
+        }
 
         return nullptr;
     }
-
 }
 
 #endif

@@ -24,18 +24,17 @@
 
 namespace Lightly
 {
-
     class BusyIndicatorData: public QObject
     {
+    Q_OBJECT
 
-        Q_OBJECT
-
-        public:
+    public:
 
         //* constructor
-        explicit BusyIndicatorData( QObject* parent ):
-            QObject( parent ),
-            _animated( false )
+        explicit BusyIndicatorData(QObject *parent)
+            :
+            QObject(parent),
+            _animated(false)
         {}
 
         //* destructor
@@ -44,7 +43,6 @@ namespace Lightly
 
         //*@name accessors
         //@{
-
         //* animated
         bool isAnimated() const
         { return _animated; }
@@ -53,28 +51,25 @@ namespace Lightly
 
         //*@name modifiers
         //@{
-
         //* enabled
-        void setEnabled( bool )
+        void setEnabled(bool)
         {}
 
         //* enabled
-        void setDuration( int )
+        void setDuration(int)
         {}
 
         //* animated
-        void setAnimated( bool value )
+        void setAnimated(bool value)
         { _animated = value; }
 
         //@}
 
-        private:
+    private:
 
         //* animated
         bool _animated;
-
     };
-
 }
 
 #endif

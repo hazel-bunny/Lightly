@@ -23,7 +23,6 @@
 
 namespace Lightly
 {
-
     struct PropertyNames
     {
         static const char noAnimations[];
@@ -35,7 +34,6 @@ namespace Lightly
         static const char menuTitle[];
         static const char alteredBackground[];
     };
-
 }
 
 #endif

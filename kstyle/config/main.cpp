@@ -36,21 +36,20 @@ int main(int argc, char *argv[])
 {
     KLocalizedString::setApplicationDomain("lightly_style_config");
 
-    QApplication app( argc, argv );
-    app.setApplicationName( i18n( "Lightly Settings" ) );
-    app.setWindowIcon( QIcon::fromTheme( QStringLiteral( "lightly-settings" ) ) );
+    QApplication app(argc, argv);
+    app.setApplicationName(i18n("Lightly Settings"));
+    app.setWindowIcon(QIcon::fromTheme(QStringLiteral("lightly-settings")));
 
     KCMultiDialog dialog;
-    dialog.setWindowTitle( i18n( "Lightly Settings" ) );
-    dialog.addModule( QStringLiteral( "lightlystyleconfig" ) );
-    dialog.addModule( QStringLiteral( "lightlydecorationconfig" ) );
+    dialog.setWindowTitle(i18n("Lightly Settings"));
+    dialog.addModule(QStringLiteral("lightlystyleconfig"));
+    dialog.addModule(QStringLiteral("lightlydecorationconfig"));
     dialog.show();
 
-    foreach( auto child, dialog.findChildren<QAbstractScrollArea*>() )
-    {
-        child->adjustSize();
-        child->viewport()->adjustSize();
-    }
+        foreach(auto child, dialog.findChildren<QAbstractScrollArea *>()) {
+            child->adjustSize();
+            child->viewport()->adjustSize();
+        }
 
     return app.exec();
 }

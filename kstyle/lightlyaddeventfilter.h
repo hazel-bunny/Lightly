@@ -25,26 +25,23 @@
 
 namespace Lightly
 {
-
     class AddEventFilter: public QObject
     {
+    Q_OBJECT
 
-        Q_OBJECT
-
-        public:
+    public:
 
         //* constructor
-        AddEventFilter():
+        AddEventFilter()
+            :
             QObject()
-            {}
+        {}
 
         //* event filter
         /** blocks all AddChild events */
-        bool eventFilter( QObject*, QEvent* event ) override
+        bool eventFilter(QObject *, QEvent *event) override
         { return event->type() == QEvent::ChildAdded; }
-
     };
-
 }
 
 #endif

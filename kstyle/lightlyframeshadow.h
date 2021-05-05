@@ -39,95 +39,95 @@ namespace Lightly
     class FrameShadowFactory: public QObject
     {
 
-        Q_OBJECT
+    Q_OBJECT
 
-        public:
+    public:
 
         //* constructor
-        explicit FrameShadowFactory( QObject* parent ):
-        QObject( parent )
+        explicit FrameShadowFactory(QObject *parent)
+            :
+            QObject(parent)
         {}
 
         //* register widget
-        bool registerWidget( QWidget*, Helper& );
+        bool registerWidget(QWidget *, Helper &);
 
         //* unregister
-        void unregisterWidget( QWidget* );
+        void unregisterWidget(QWidget *);
 
         //* true if widget is registered
-        bool isRegistered( const QWidget* widget ) const
-        { return _registeredWidgets.contains( widget ); }
+        bool isRegistered(const QWidget *widget) const
+        { return _registeredWidgets.contains(widget); }
 
         //* event filter
-        bool eventFilter( QObject*, QEvent*) override;
+        bool eventFilter(QObject *, QEvent *) override;
 
         //* update state
-        void updateState( const QWidget*, bool focus, bool hover, qreal opacity, AnimationMode ) const;
+        void updateState(const QWidget *, bool focus, bool hover, qreal opacity, AnimationMode) const;
 
         //* update shadows geometry
-        void updateShadowsGeometry( const QObject*, QRect ) const;
+        void updateShadowsGeometry(const QObject *, QRect) const;
 
-        protected:
+    protected:
 
         //* install shadows on given widget
-        void installShadows( QWidget*, Helper& );
+        void installShadows(QWidget *, Helper &);
 
         //* remove shadows from widget
-        void removeShadows( QWidget* );
+        void removeShadows(QWidget *);
 
         //* raise shadows
-        void raiseShadows( QObject* ) const;
+        void raiseShadows(QObject *) const;
 
         //* update shadows
-        void update( QObject* ) const;
+        void update(QObject *) const;
 
         //* install shadow on given side
-        void installShadow( QWidget*, Helper&, Side ) const;
+        void installShadow(QWidget *, Helper &, Side) const;
 
-        protected Q_SLOTS:
+    protected Q_SLOTS:
 
         //* triggered by object destruction
-        void widgetDestroyed( QObject* );
+        void widgetDestroyed(QObject *);
 
-        private:
+    private:
 
         //* needed to block ChildAdded events when creating shadows
         AddEventFilter _addEventFilter;
 
         //* set of registered widgets
-        QSet<const QObject*> _registeredWidgets;
-
+        QSet<const QObject *> _registeredWidgets;
     };
 
     //* frame shadow
     /** this allows the shadow to be painted over the widgets viewport */
-    class FrameShadow : public QWidget
+    class FrameShadow: public QWidget
     {
-        Q_OBJECT
+    Q_OBJECT
 
-        public:
+    public:
 
         //* constructor
-        FrameShadow( Side, Helper& );
+        FrameShadow(Side, Helper &);
 
         //* update geometry
-        virtual void updateGeometry( QRect );
+        virtual void updateGeometry(QRect);
 
         //* update state
-        void updateState( bool focus, bool hover, qreal opacity, AnimationMode );
+        void updateState(bool focus, bool hover, qreal opacity, AnimationMode);
 
-        protected:
+    protected:
 
         //* painting
-        void paintEvent( QPaintEvent* ) override;
+        void paintEvent(QPaintEvent *) override;
 
         //* return viewport associated to parent widget
-        QWidget* viewport() const;
+        QWidget *viewport() const;
 
-        private:
+    private:
 
         //* helper
-        Helper& _helper;
+        Helper &_helper;
 
         //* shadow area
         Side _area;

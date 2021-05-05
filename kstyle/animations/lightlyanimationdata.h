@@ -30,26 +30,25 @@
 #include <QDebug>
 namespace Lightly
 {
-
     //* base class
     class AnimationData: public QObject
     {
+    Q_OBJECT
 
-        Q_OBJECT
-
-        public:
+    public:
 
         //* constructor
-        AnimationData( QObject* parent, QWidget* target ):
-            QObject( parent ),
-            _target( target )
+        AnimationData(QObject *parent, QWidget *target)
+            :
+            QObject(parent),
+            _target(target)
         {}
 
         //* duration
-        virtual void setDuration( int ) = 0;
+        virtual void setDuration(int) = 0;
 
         //* steps
-        static void setSteps( int value )
+        static void setSteps(int value)
         { _steps = value; }
 
         //* enability
@@ -57,23 +56,23 @@ namespace Lightly
         { return _enabled; }
 
         //* enability
-        virtual void setEnabled( bool value )
+        virtual void setEnabled(bool value)
         { _enabled = value; }
 
         //* target
-        const WeakPointer<QWidget>& target() const
+        const WeakPointer<QWidget> &target() const
         { return _target; }
 
         //* invalid opacity
         static const qreal OpacityInvalid;
 
-        protected:
+    protected:
 
         //* setup animation
-        virtual void setupAnimation( const Animation::Pointer& animation, const QByteArray& property );
+        virtual void setupAnimation(const Animation::Pointer &animation, const QByteArray &property);
 
         //* apply step
-        virtual qreal digitize( const qreal& value ) const
+        virtual qreal digitize(const qreal &value) const
         {
             //qDebug() << "receiving:" << value << "returning:" << std::floor( value*_steps )/_steps;
             /*if( _steps > 0 ) return std::floor( value*_steps )/_steps;
@@ -82,9 +81,9 @@ namespace Lightly
 
         //* trigger target update
         virtual void setDirty() const
-        { if( _target ) _target.data()->update(); }
+        { if (_target) { _target.data()->update(); }}
 
-        private:
+    private:
 
         //* guarded target
         WeakPointer<QWidget> _target;
@@ -94,9 +93,7 @@ namespace Lightly
 
         //* steps
         static int _steps;
-
     };
-
 }
 
 #endif

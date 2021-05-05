@@ -30,55 +30,47 @@
 
 namespace Lightly
 {
-
     //____________________________________________________________
-    MenuBarEngineV1::MenuBarEngineV1( QObject* parent, MenuBarBaseEngine* other ):
-        MenuBarBaseEngine( parent )
+    MenuBarEngineV1::MenuBarEngineV1(QObject *parent, MenuBarBaseEngine *other)
+        :
+        MenuBarBaseEngine(parent)
     {
-        if( other )
-        {
-            foreach( QWidget* widget,  other->registeredWidgets() )
-            { registerWidget( widget ); }
+        if (other) {
+                foreach(QWidget *widget, other->registeredWidgets()) { registerWidget(widget); }
         }
     }
 
     //____________________________________________________________
-    bool MenuBarEngineV1::registerWidget( QWidget* widget )
+    bool MenuBarEngineV1::registerWidget(QWidget *widget)
     {
-
-        if( !widget ) return false;
+        if (!widget) { return false; }
 
         // create new data class
-        if( !_data.contains( widget ) ) _data.insert( widget, new MenuBarDataV1( this, widget, duration() ), enabled() );
+        if (!_data.contains(widget)) { _data.insert(widget, new MenuBarDataV1(this, widget, duration()), enabled()); }
 
         // connect destruction signal
-        connect( widget, SIGNAL(destroyed(QObject*)), this, SLOT(unregisterWidget(QObject*)), Qt::UniqueConnection );
+        connect(widget, SIGNAL(destroyed(QObject * )), this, SLOT(unregisterWidget(QObject * )), Qt::UniqueConnection);
         return true;
-
     }
 
     //____________________________________________________________
-    bool MenuBarEngineV1::isAnimated( const QObject* object, const QPoint& position )
+    bool MenuBarEngineV1::isAnimated(const QObject *object, const QPoint &position)
     {
-        DataMap<MenuBarDataV1>::Value data( _data.find( object ) );
-        if( !data ) return false;
-        if( Animation::Pointer animation = data.data()->animation( position ) ) return animation.data()->isRunning();
-        else return false;
+        DataMap<MenuBarDataV1>::Value data(_data.find(object));
+        if (!data) { return false; }
+        if (Animation::Pointer animation = data.data()->animation(position)) { return animation.data()->isRunning(); }
+        else { return false; }
     }
 
     //____________________________________________________________
-    BaseEngine::WidgetList MenuBarEngineV1::registeredWidgets( void ) const
+    BaseEngine::WidgetList MenuBarEngineV1::registeredWidgets(void) const
     {
-
-        WidgetList out ;
+        WidgetList out;
 
         // the typedef is needed to make Krazy happy
         typedef DataMap<MenuBarDataV1>::Value Value;
-        foreach( const Value& value, _data )
-        { if( value ) out.insert( value.data()->target().data() ); }
+            foreach(const Value &value, _data) { if (value) { out.insert(value.data()->target().data()); }}
 
         return out;
-
     }
-
 }

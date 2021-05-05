@@ -33,33 +33,32 @@
 
 namespace Lightly
 {
-
     class SplitterProxy;
 
     //* factory
     class SplitterFactory: public QObject
     {
+    Q_OBJECT
 
-        Q_OBJECT
-
-        public:
+    public:
 
         //* constructor
-        explicit SplitterFactory( QObject* parent ):
-            QObject( parent ),
-            _enabled( false )
-            {}
+        explicit SplitterFactory(QObject *parent)
+            :
+            QObject(parent),
+            _enabled(false)
+        {}
 
         //* enabled state
-        void setEnabled( bool );
+        void setEnabled(bool);
 
         //* register widget
-        bool registerWidget( QWidget* );
+        bool registerWidget(QWidget *);
 
         //* unregister widget
-        void unregisterWidget( QWidget* );
+        void unregisterWidget(QWidget *);
 
-        private:
+    private:
 
         //* enabled state
         bool _enabled;
@@ -71,46 +70,44 @@ namespace Lightly
         using SplitterProxyPointer = WeakPointer<SplitterProxy>;
 
         //* registered widgets
-        using WidgetMap = QMap<QWidget*, SplitterProxyPointer >;
+        using WidgetMap = QMap<QWidget *, SplitterProxyPointer>;
         WidgetMap _widgets;
-
     };
 
     //* splitter 'proxy' widget, with extended hit area
-    class SplitterProxy : public QWidget
+    class SplitterProxy: public QWidget
     {
+    Q_OBJECT
 
-        Q_OBJECT
-
-        public:
+    public:
 
         //* constructor
-        explicit SplitterProxy( QWidget*, bool = false );
+        explicit SplitterProxy(QWidget *, bool = false);
 
         //* event filter
-        bool eventFilter( QObject*, QEvent* ) override;
+        bool eventFilter(QObject *, QEvent *) override;
 
         //* enable state
-        void setEnabled( bool );
+        void setEnabled(bool);
 
         //* enable state
         bool enabled() const
         { return _enabled; }
 
-        protected:
+    protected:
 
         //* event handler
-        bool event( QEvent* ) override;
+        bool event(QEvent *) override;
 
-        protected:
+    protected:
 
         //* reset 'true' splitter widget
         void clearSplitter();
 
         //* keep track of 'true' splitter widget
-        void setSplitter( QWidget* );
+        void setSplitter(QWidget *);
 
-        private:
+    private:
 
         //* enabled state
         bool _enabled;
@@ -123,9 +120,7 @@ namespace Lightly
 
         //* timer id
         int _timerId;
-
     };
-
 }
 
 #endif

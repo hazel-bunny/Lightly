@@ -24,20 +24,19 @@
 
 namespace Lightly
 {
-
     //* handle widget state (hover/focus/enable) changes
     class WidgetStateData: public GenericData
     {
+    Q_OBJECT
 
-        Q_OBJECT
-
-        public:
+    public:
 
         //* constructor
-        WidgetStateData( QObject* parent, QWidget* target, int duration, bool state = false ):
-            GenericData( parent, target, duration ),
-            _initialized( false ),
-            _state( state )
+        WidgetStateData(QObject *parent, QWidget *target, int duration, bool state = false)
+            :
+            GenericData(parent, target, duration),
+            _initialized(false),
+            _state(state)
         {}
 
         //* destructor
@@ -48,15 +47,13 @@ namespace Lightly
         returns true if hover has Changed
         and starts timer accordingly
         */
-        virtual bool updateState( bool value, AnimationParameters parameters = AnimationDefaut );
+        virtual bool updateState(bool value, AnimationParameters parameters = AnimationDefaut);
 
-        private:
+    private:
 
         bool _initialized;
         bool _state;
-
     };
-
 }
 
 #endif

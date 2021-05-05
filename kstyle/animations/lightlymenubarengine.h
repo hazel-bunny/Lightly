@@ -33,115 +33,114 @@
 
 namespace Lightly
 {
-
     //* stores menubar hovered action and timeLine
     class MenuBarBaseEngine: public BaseEngine
     {
+    Q_OBJECT
 
-        Q_OBJECT
-
-        public:
+    public:
 
         //* constructor
-        explicit MenuBarBaseEngine( QObject* parent ):
-            BaseEngine( parent )
+        explicit MenuBarBaseEngine(QObject *parent)
+            :
+            BaseEngine(parent)
         {}
 
         //* register menubar
-        virtual bool registerWidget( QWidget* ) = 0;
+        virtual bool registerWidget(QWidget *) = 0;
 
         //* true if widget is animated
-        virtual bool isAnimated( const QObject*, const QPoint& )
+        virtual bool isAnimated(const QObject *, const QPoint &)
         { return false; }
 
         //* animation opacity
-        virtual qreal opacity( const QObject*, const QPoint& )
+        virtual qreal opacity(const QObject *, const QPoint &)
         { return -1; }
 
         //* return 'hover' rect position when widget is animated
-        virtual QRect currentRect( const QObject*, const QPoint& )
+        virtual QRect currentRect(const QObject *, const QPoint &)
         { return QRect(); }
 
         //* animated rect
-        virtual QRect animatedRect( const QObject* )
+        virtual QRect animatedRect(const QObject *)
         { return QRect(); }
 
         //* timer
-        virtual bool isTimerActive( const QObject* )
+        virtual bool isTimerActive(const QObject *)
         { return false; }
 
         //* enable state
-        void setEnabled( bool ) override = 0;
+        void setEnabled(bool) override = 0;
 
         //* duration
-        void setDuration( int ) override = 0;
+        void setDuration(int) override = 0;
 
         //* duration
-        virtual void setFollowMouseDuration( int )
+        virtual void setFollowMouseDuration(int)
         {}
-
     };
 
     //* fading menubar animation
     class MenuBarEngineV1: public MenuBarBaseEngine
     {
+    Q_OBJECT
 
-        Q_OBJECT
-
-        public:
+    public:
 
         //* constructor
-        explicit MenuBarEngineV1( QObject* parent ):
-            MenuBarBaseEngine( parent )
+        explicit MenuBarEngineV1(QObject *parent)
+            :
+            MenuBarBaseEngine(parent)
         {}
 
         //* constructor
-        MenuBarEngineV1( QObject* parent, MenuBarBaseEngine* other );
+        MenuBarEngineV1(QObject *parent, MenuBarBaseEngine *other);
 
         //* register menubar
-        bool registerWidget( QWidget* ) override;
+        bool registerWidget(QWidget *) override;
 
         //* true if widget is animated
-        bool isAnimated( const QObject* object, const QPoint& point ) override;
+        bool isAnimated(const QObject *object, const QPoint &point) override;
 
         //* animation opacity
-        qreal opacity( const QObject* object, const QPoint& point ) override
-        { return isAnimated( object, point ) ? _data.find( object ).data()->opacity( point ): AnimationData::OpacityInvalid; }
+        qreal opacity(const QObject *object, const QPoint &point) override
+        {
+            return isAnimated(object, point) ? _data.find(object).data()->opacity(point)
+                                             : AnimationData::OpacityInvalid;
+        }
 
         //* return 'hover' rect position when widget is animated
-        QRect currentRect( const QObject* object, const QPoint& point) override
-        { return isAnimated( object, point ) ? _data.find( object ).data()->currentRect( point ): QRect(); }
+        QRect currentRect(const QObject *object, const QPoint &point) override
+        { return isAnimated(object, point) ? _data.find(object).data()->currentRect(point) : QRect(); }
 
         //* enable state
-        void setEnabled( bool value ) override
+        void setEnabled(bool value) override
         {
-            BaseEngine::setEnabled( value );
-            _data.setEnabled( value );
+            BaseEngine::setEnabled(value);
+            _data.setEnabled(value);
         }
 
         //* duration
-        void setDuration( int duration ) override
+        void setDuration(int duration) override
         {
-            BaseEngine::setDuration( duration );
-            _data.setDuration( duration );
+            BaseEngine::setDuration(duration);
+            _data.setDuration(duration);
         }
 
         //* return list of registered widgets
-        WidgetList registeredWidgets( void ) const override;
+        WidgetList registeredWidgets(void) const override;
 
-        protected Q_SLOTS:
+    protected Q_SLOTS:
 
         //* remove widget from map
-        bool unregisterWidget( QObject* object ) override
-        { return _data.unregisterWidget( object ); }
+        bool unregisterWidget(QObject *object) override
+        { return _data.unregisterWidget(object); }
 
-        private:
+    private:
 
         //* data map
         DataMap<MenuBarDataV1> _data;
-
     };
-
 }
 
 #endif

@@ -31,12 +31,11 @@ class QVariantAnimation;
 
 namespace Lightly
 {
-
-    class Button : public KDecoration2::DecorationButton
+    class Button: public KDecoration2::DecorationButton
     {
-        Q_OBJECT
+    Q_OBJECT
 
-        public:
+    public:
 
         //* constructor
         explicit Button(QObject *parent, const QVariantList &args);
@@ -45,7 +44,9 @@ namespace Lightly
         virtual ~Button() = default;
 
         //* button creation
-        static Button *create(KDecoration2::DecorationButtonType type, KDecoration2::Decoration *decoration, QObject *parent);
+        static Button *create(KDecoration2::DecorationButtonType type,
+                              KDecoration2::Decoration *decoration,
+                              QObject *parent);
 
         //* render
         virtual void paint(QPainter *painter, const QRect &repaintRegion) override;
@@ -60,33 +61,34 @@ namespace Lightly
         };
 
         //* flag
-        void setFlag( Flag value )
+        void setFlag(Flag value)
         { m_flag = value; }
 
         //* standalone buttons
-        bool isStandAlone() const { return m_flag == FlagStandalone; }
+        bool isStandAlone() const
+        { return m_flag == FlagStandalone; }
 
         //* offset
-        void setOffset( const QPointF& value )
+        void setOffset(const QPointF &value)
         { m_offset = value; }
 
         //* horizontal offset, for rendering
-        void setHorizontalOffset( qreal value )
-        { m_offset.setX( value ); }
+        void setHorizontalOffset(qreal value)
+        { m_offset.setX(value); }
 
         //* vertical offset, for rendering
-        void setVerticalOffset( qreal value )
-        { m_offset.setY( value ); }
+        void setVerticalOffset(qreal value)
+        { m_offset.setY(value); }
 
         //* set icon size
-        void setIconSize( const QSize& value )
+        void setIconSize(const QSize &value)
         { m_iconSize = value; }
 
         //*@name active state change animation
         //@{
-        void setOpacity( qreal value )
+        void setOpacity(qreal value)
         {
-            if( m_opacity == value ) return;
+            if (m_opacity == value) { return; }
             m_opacity = value;
             update();
         }
@@ -96,7 +98,7 @@ namespace Lightly
 
         //@}
 
-        private Q_SLOTS:
+    private Q_SLOTS:
 
         //* apply configuration changes
         void reconfigure();
@@ -104,13 +106,13 @@ namespace Lightly
         //* animation state
         void updateAnimationState(bool);
 
-        private:
+    private:
 
         //* private constructor
         explicit Button(KDecoration2::DecorationButtonType type, Decoration *decoration, QObject *parent = nullptr);
 
         //* draw button icon
-        void drawIcon( QPainter *) const;
+        void drawIcon(QPainter *) const;
 
         //*@name colors
         //@{
@@ -132,7 +134,6 @@ namespace Lightly
         //* active state change opacity
         qreal m_opacity = 0;
     };
-
 } // namespace
 
 #endif

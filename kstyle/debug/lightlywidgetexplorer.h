@@ -28,40 +28,38 @@
 
 namespace Lightly
 {
-
     //* print widget's and parent's information on mouse click
     class WidgetExplorer: public QObject
     {
+    Q_OBJECT
 
-        Q_OBJECT
-
-        public:
+    public:
 
         //* constructor
-        explicit WidgetExplorer( QObject* );
+        explicit WidgetExplorer(QObject *);
 
         //* enable
         bool enabled() const;
 
         //* enable
-        void setEnabled( bool );
+        void setEnabled(bool);
 
         //* widget rects
-        void setDrawWidgetRects( bool value )
+        void setDrawWidgetRects(bool value)
         { _drawWidgetRects = value; }
 
         //* event filter
-        bool eventFilter( QObject*, QEvent* ) override;
+        bool eventFilter(QObject *, QEvent *) override;
 
-        protected:
+    protected:
 
         //* event type
-        QString eventType( const QEvent::Type& ) const;
+        QString eventType(const QEvent::Type &) const;
 
         //* print widget information
-        QString widgetInformation( const QWidget* ) const;
+        QString widgetInformation(const QWidget *) const;
 
-        private:
+    private:
 
         //* enable state
         bool _enabled = false;
@@ -70,10 +68,8 @@ namespace Lightly
         bool _drawWidgetRects = false;
 
         //* map event types to string
-        QMap<QEvent::Type, QString > _eventTypes;
-
+        QMap<QEvent::Type, QString> _eventTypes;
     };
-
 }
 
 #endif

@@ -36,7 +36,6 @@ namespace Lightly
     //* metrics
     enum Metrics
     {
-
         //* corner radius (pixels)
         //Frame_FrameRadius = 5,
 
@@ -48,7 +47,6 @@ namespace Lightly
 
         // shadow dimensions (pixels)
         Shadow_Overlap = 3,
-
     };
 
     //* standard pen widths
@@ -66,7 +64,7 @@ namespace Lightly
     enum ExceptionMask
     {
         None = 0,
-        BorderSize = 1<<4
+        BorderSize = 1 << 4
     };
 }
 

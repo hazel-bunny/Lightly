@@ -26,65 +26,62 @@
 
 namespace Lightly
 {
-
     //* handles spinbox arrows hover
     class SpinBoxData: public AnimationData
     {
-
-        Q_OBJECT
+    Q_OBJECT
 
         //* declare opacity property
-        Q_PROPERTY( qreal upArrowOpacity READ upArrowOpacity WRITE setUpArrowOpacity )
-        Q_PROPERTY( qreal downArrowOpacity READ downArrowOpacity WRITE setDownArrowOpacity )
+        Q_PROPERTY(qreal upArrowOpacity READ upArrowOpacity WRITE setUpArrowOpacity)
+        Q_PROPERTY(qreal downArrowOpacity READ downArrowOpacity WRITE setDownArrowOpacity)
 
-        public:
+    public:
 
         //* constructor
-        SpinBoxData( QObject*, QWidget*, int );
+        SpinBoxData(QObject *, QWidget *, int);
 
         //* animation state
-        bool updateState( QStyle::SubControl subControl, bool value )
+        bool updateState(QStyle::SubControl subControl, bool value)
         {
-            if( subControl == QStyle::SC_SpinBoxUp ) return _upArrowData.updateState( value );
-            else if( subControl == QStyle::SC_SpinBoxDown ) return _downArrowData.updateState( value );
-            else return false;
+            if (subControl == QStyle::SC_SpinBoxUp) { return _upArrowData.updateState(value); }
+            else if (subControl == QStyle::SC_SpinBoxDown) { return _downArrowData.updateState(value); }
+            else { return false; }
         }
 
         //* animation state
-        bool isAnimated( QStyle::SubControl subControl ) const
+        bool isAnimated(QStyle::SubControl subControl) const
         {
-            return(
-                ( subControl == QStyle::SC_SpinBoxUp && upArrowAnimation().data()->isRunning() ) ||
-                ( subControl == QStyle::SC_SpinBoxDown && downArrowAnimation().data()->isRunning() ) );
+            return (
+                (subControl == QStyle::SC_SpinBoxUp && upArrowAnimation().data()->isRunning()) ||
+                    (subControl == QStyle::SC_SpinBoxDown && downArrowAnimation().data()->isRunning()));
         }
 
         //* opacity
-        qreal opacity( QStyle::SubControl subControl ) const
+        qreal opacity(QStyle::SubControl subControl) const
         {
-            if( subControl == QStyle::SC_SpinBoxUp ) return upArrowOpacity();
-            else if( subControl == QStyle::SC_SpinBoxDown ) return downArrowOpacity();
-            else return OpacityInvalid;
+            if (subControl == QStyle::SC_SpinBoxUp) { return upArrowOpacity(); }
+            else if (subControl == QStyle::SC_SpinBoxDown) { return downArrowOpacity(); }
+            else { return OpacityInvalid; }
         }
 
         //* duration
-        void setDuration( int duration ) override
+        void setDuration(int duration) override
         {
-            upArrowAnimation().data()->setDuration( duration );
-            downArrowAnimation().data()->setDuration( duration );
+            upArrowAnimation().data()->setDuration(duration);
+            downArrowAnimation().data()->setDuration(duration);
         }
 
         //*@name up arrow animation
         //@{
-
         //* opacity
         qreal upArrowOpacity() const
         { return _upArrowData._opacity; }
 
         //* opacity
-        void setUpArrowOpacity( qreal value )
+        void setUpArrowOpacity(qreal value)
         {
-            value = digitize( value );
-            if( _upArrowData._opacity == value ) return;
+            value = digitize(value);
+            if (_upArrowData._opacity == value) { return; }
             _upArrowData._opacity = value;
             setDirty();
         }
@@ -97,16 +94,15 @@ namespace Lightly
 
         //*@name down arrow animation
         //@{
-
         //* opacity
         qreal downArrowOpacity() const
         { return _downArrowData._opacity; }
 
         //* opacity
-        void setDownArrowOpacity( qreal value )
+        void setDownArrowOpacity(qreal value)
         {
-            value = digitize( value );
-            if( _downArrowData._opacity == value ) return;
+            value = digitize(value);
+            if (_downArrowData._opacity == value) { return; }
             _downArrowData._opacity = value;
             setDirty();
         }
@@ -117,22 +113,22 @@ namespace Lightly
 
         //@}
 
-        private:
+    private:
 
         //* container for needed animation data
         class Data
         {
-
-            public:
+        public:
 
             //* default constructor
-            Data():
-                _state( false ),
+            Data()
+                :
+                _state(false),
                 _opacity(0)
-                {}
+            {}
 
             //* state
-            bool updateState( bool );
+            bool updateState(bool);
 
             //* arrow state
             bool _state;
@@ -142,7 +138,6 @@ namespace Lightly
 
             //* opacity
             qreal _opacity;
-
         };
 
         //* up arrow data
@@ -150,10 +145,7 @@ namespace Lightly
 
         //* down arrow data
         Data _downArrowData;
-
     };
-
-
 }
 
 #endif

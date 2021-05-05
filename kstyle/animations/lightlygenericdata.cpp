@@ -23,12 +23,11 @@
 
 namespace Lightly
 {
-
     //______________________________________________
-    GenericData::GenericData( QObject* parent, QWidget* target, int duration ):
-        AnimationData( parent, target ),
-        _animation( new Animation( duration, this ) ),
+    GenericData::GenericData(QObject *parent, QWidget *target, int duration)
+        :
+        AnimationData(parent, target),
+        _animation(new Animation(duration, this)),
         _opacity(0)
-    { setupAnimation( _animation, "opacity" ); }
-
+    { setupAnimation(_animation, "opacity"); }
 }

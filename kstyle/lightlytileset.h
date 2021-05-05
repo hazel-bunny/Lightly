@@ -34,7 +34,7 @@ namespace Lightly
 {
     class TileSet
     {
-        public:
+    public:
         /**
         Create a TileSet from a pixmap. The size of the bottom/right chunks is
         whatever is left over from the other chunks, whose size is specified
@@ -45,7 +45,7 @@ namespace Lightly
         @param w2 width of the not-left-or-right chunks
         @param h2 height of the not-top-or-bottom chunks
         */
-        TileSet(const QPixmap&, int w1, int h1, int w2, int h2 );
+        TileSet(const QPixmap &, int w1, int h1, int w2, int h2);
 
         //* empty constructor
         TileSet();
@@ -60,20 +60,21 @@ namespace Lightly
         top-center, center-left, and top-left chunks. The center-center chunk is
         only drawn when Center is requested.
         */
-        enum Tile {
+        enum Tile
+        {
             Top = 0x1,
             Left = 0x2,
             Bottom = 0x4,
             Right = 0x8,
             Center = 0x10,
-            TopLeft = Top|Left,
-            TopRight = Top|Right,
-            BottomLeft = Bottom|Left,
-            BottomRight = Bottom|Right,
-            Ring = Top|Left|Bottom|Right,
-            Horizontal = Left|Right|Center,
-            Vertical = Top|Bottom|Center,
-            Full = Ring|Center
+            TopLeft = Top | Left,
+            TopRight = Top | Right,
+            BottomLeft = Bottom | Left,
+            BottomRight = Bottom | Right,
+            Ring = Top | Left | Bottom | Right,
+            Horizontal = Left | Right | Center,
+            Vertical = Top | Bottom | Center,
+            Full = Ring | Center
         };
         Q_DECLARE_FLAGS(Tiles, Tile)
 
@@ -83,29 +84,29 @@ namespace Lightly
         directions. Partial tiles are used as needed so that the entire rect is
         perfectly filled. Filling is performed as if all chunks are being drawn.
         */
-        void render(const QRect&, QPainter*, Tiles = Ring) const;
+        void render(const QRect &, QPainter *, Tiles = Ring) const;
 
         //* return size associated to this tileset
         QSize size() const
-        { return QSize( _w1 + _w3, _h1 + _h3 ); }
+        { return QSize(_w1 + _w3, _h1 + _h3); }
 
         //* is valid
         bool isValid() const
         { return _pixmaps.size() == 9; }
 
         //* returns pixmap for given index
-        QPixmap pixmap( int index ) const
+        QPixmap pixmap(int index) const
         { return _pixmaps[index]; }
 
-        protected:
+    protected:
 
         //* shortcut to pixmap list
         using PixmapList = QVector<QPixmap>;
 
         //* initialize pixmap
-        void initPixmap( PixmapList&, const QPixmap&, int w, int h, const QRect& );
+        void initPixmap(PixmapList &, const QPixmap &, int w, int h, const QRect &);
 
-        private:
+    private:
 
         //* pixmap arry
         PixmapList _pixmaps;
@@ -115,9 +116,7 @@ namespace Lightly
         int _h1;
         int _w3;
         int _h3;
-
     };
-
 }
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(Lightly::TileSet::Tiles)

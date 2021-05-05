@@ -24,45 +24,41 @@
 
 namespace Lightly
 {
-
     //* dial data
     class DialData: public WidgetStateData
     {
+    Q_OBJECT
 
-        Q_OBJECT
-
-        public:
+    public:
 
         //* constructor
-        DialData( QObject* parent, QWidget* target, int );
+        DialData(QObject *parent, QWidget *target, int);
 
         //* event filter
-        bool eventFilter( QObject*, QEvent* ) override;
+        bool eventFilter(QObject *, QEvent *) override;
 
         //* subcontrol rect
-        void setHandleRect( const QRect& rect )
+        void setHandleRect(const QRect &rect)
         { _handleRect = rect; }
 
         //* mouse position
         QPoint position() const
         { return _position; }
 
-        private:
+    private:
 
         //* hoverMoveEvent
-        void hoverMoveEvent( QObject*, QEvent* );
+        void hoverMoveEvent(QObject *, QEvent *);
 
         //* hoverMoveEvent
-        void hoverLeaveEvent( QObject*, QEvent* );
+        void hoverLeaveEvent(QObject *, QEvent *);
 
         //* rect
         QRect _handleRect;
 
         //* mouse position
         QPoint _position;
-
     };
-
 }
 
 #endif

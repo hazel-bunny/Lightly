@@ -26,29 +26,25 @@
 
 namespace Lightly
 {
-
     //* configuration module
     class ConfigurationModule: public KCModule
     {
+    Q_OBJECT
 
-        Q_OBJECT
-
-        public:
+    public:
         ConfigurationModule(QWidget *parent, const QVariantList &args);
 
-        public Q_SLOTS:
+    public Q_SLOTS:
 
         void defaults() override;
         void load() override;
         void save() override;
 
-        private:
+    private:
 
         //* configuration
-        StyleConfig* m_config;
-
+        StyleConfig *m_config;
     };
-
 }
 
 #endif

@@ -43,11 +43,11 @@ namespace KDecoration2
 namespace Lightly
 {
     class SizeGrip;
-    class Decoration : public KDecoration2::Decoration
+    class Decoration: public KDecoration2::Decoration
     {
-        Q_OBJECT
+    Q_OBJECT
 
-        public:
+    public:
 
         //* constructor
         explicit Decoration(QObject *parent = nullptr, const QVariantList &args = QVariantList());
@@ -70,7 +70,7 @@ namespace Lightly
 
         //*@name active state change animation
         //@{
-        void setOpacity( qreal );
+        void setOpacity(qreal);
 
         qreal opacity() const
         { return m_opacity; }
@@ -98,10 +98,10 @@ namespace Lightly
         inline bool hideTitleBar() const;
         //@}
 
-        public Q_SLOTS:
+    public Q_SLOTS:
         void init() override;
 
-        private Q_SLOTS:
+    private Q_SLOTS:
         void reconfigure();
         void recalculateBorders();
         void updateButtonsGeometry();
@@ -110,10 +110,10 @@ namespace Lightly
         void updateAnimationState();
         void updateSizeGripVisibility();
 
-        private:
+    private:
 
         //* return the rect in which caption will be drawn
-        QPair<QRect,Qt::Alignment> captionRect() const;
+        QPair<QRect, Qt::Alignment> captionRect() const;
 
         void createButtons();
         void paintTitleBar(QPainter *painter, const QRect &repaintRegion);
@@ -131,7 +131,7 @@ namespace Lightly
         //@{
         void createSizeGrip();
         void deleteSizeGrip();
-        SizeGrip* sizeGrip() const
+        SizeGrip *sizeGrip() const
         { return m_sizeGrip; }
         //@}
 
@@ -147,25 +147,30 @@ namespace Lightly
 
         //* active state change opacity
         qreal m_opacity = 0;
-
     };
 
     bool Decoration::hasBorders() const
     {
-        if( m_internalSettings && m_internalSettings->mask() & BorderSize ) return m_internalSettings->borderSize() > InternalSettings::BorderNoSides;
-        else return settings()->borderSize() > KDecoration2::BorderSize::NoSides;
+        if (m_internalSettings && m_internalSettings->mask() & BorderSize) {
+            return m_internalSettings->borderSize() > InternalSettings::BorderNoSides;
+        }
+        else { return settings()->borderSize() > KDecoration2::BorderSize::NoSides; }
     }
 
     bool Decoration::hasNoBorders() const
     {
-        if( m_internalSettings && m_internalSettings->mask() & BorderSize ) return m_internalSettings->borderSize() == InternalSettings::BorderNone;
-        else return settings()->borderSize() == KDecoration2::BorderSize::None;
+        if (m_internalSettings && m_internalSettings->mask() & BorderSize) {
+            return m_internalSettings->borderSize() == InternalSettings::BorderNone;
+        }
+        else { return settings()->borderSize() == KDecoration2::BorderSize::None; }
     }
 
     bool Decoration::hasNoSideBorders() const
     {
-        if( m_internalSettings && m_internalSettings->mask() & BorderSize ) return m_internalSettings->borderSize() == InternalSettings::BorderNoSides;
-        else return settings()->borderSize() == KDecoration2::BorderSize::NoSides;
+        if (m_internalSettings && m_internalSettings->mask() & BorderSize) {
+            return m_internalSettings->borderSize() == InternalSettings::BorderNoSides;
+        }
+        else { return settings()->borderSize() == KDecoration2::BorderSize::NoSides; }
     }
 
     bool Decoration::isMaximized() const
@@ -178,20 +183,35 @@ namespace Lightly
     { return client().data()->isMaximizedVertically() && !m_internalSettings->drawBorderOnMaximizedWindows(); }
 
     bool Decoration::isLeftEdge() const
-    { return (client().data()->isMaximizedHorizontally() || client().data()->adjacentScreenEdges().testFlag( Qt::LeftEdge ) ) && !m_internalSettings->drawBorderOnMaximizedWindows(); }
+    {
+        return (client().data()->isMaximizedHorizontally()
+            || client().data()->adjacentScreenEdges().testFlag(Qt::LeftEdge))
+            && !m_internalSettings->drawBorderOnMaximizedWindows();
+    }
 
     bool Decoration::isRightEdge() const
-    { return (client().data()->isMaximizedHorizontally() || client().data()->adjacentScreenEdges().testFlag( Qt::RightEdge ) ) && !m_internalSettings->drawBorderOnMaximizedWindows(); }
+    {
+        return (client().data()->isMaximizedHorizontally()
+            || client().data()->adjacentScreenEdges().testFlag(Qt::RightEdge))
+            && !m_internalSettings->drawBorderOnMaximizedWindows();
+    }
 
     bool Decoration::isTopEdge() const
-    { return (client().data()->isMaximizedVertically() || client().data()->adjacentScreenEdges().testFlag( Qt::TopEdge ) ) && !m_internalSettings->drawBorderOnMaximizedWindows(); }
+    {
+        return
+            (client().data()->isMaximizedVertically() || client().data()->adjacentScreenEdges().testFlag(Qt::TopEdge))
+                && !m_internalSettings->drawBorderOnMaximizedWindows();
+    }
 
     bool Decoration::isBottomEdge() const
-    { return (client().data()->isMaximizedVertically() || client().data()->adjacentScreenEdges().testFlag( Qt::BottomEdge ) ) && !m_internalSettings->drawBorderOnMaximizedWindows(); }
+    {
+        return (client().data()->isMaximizedVertically()
+            || client().data()->adjacentScreenEdges().testFlag(Qt::BottomEdge))
+            && !m_internalSettings->drawBorderOnMaximizedWindows();
+    }
 
     bool Decoration::hideTitleBar() const
     { return m_internalSettings->hideTitleBar() && !client().data()->isShaded(); }
-
 }
 
 #endif

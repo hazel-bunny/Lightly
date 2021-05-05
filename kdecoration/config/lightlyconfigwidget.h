@@ -38,17 +38,15 @@
 
 namespace Lightly
 {
-
     //_____________________________________________
     class ConfigWidget: public KCModule
     {
+    Q_OBJECT
 
-        Q_OBJECT
-
-        public:
+    public:
 
         //* constructor
-        explicit ConfigWidget( QWidget*, const QVariantList& );
+        explicit ConfigWidget(QWidget *, const QVariantList &);
 
         //* destructor
         virtual ~ConfigWidget() = default;
@@ -62,17 +60,17 @@ namespace Lightly
         //* save configuration
         void save() override;
 
-        protected Q_SLOTS:
+    protected Q_SLOTS:
 
         //* update changed state
         virtual void updateChanged();
 
-        protected:
+    protected:
 
         //* set changed state
-        void setChanged( bool );
+        void setChanged(bool);
 
-        private:
+    private:
 
         //* ui
         Ui_LightlyConfigurationUI m_ui;
@@ -85,9 +83,7 @@ namespace Lightly
 
         //* changed state
         bool m_changed;
-
     };
-
 }
 
 #endif

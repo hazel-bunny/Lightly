@@ -33,19 +33,17 @@
 
 namespace Lightly
 {
-
     //* generic data
     class StackedWidgetData: public TransitionData
     {
+    Q_OBJECT
 
-        Q_OBJECT
-
-        public:
+    public:
 
         //* constructor
-        StackedWidgetData( QObject*, QStackedWidget*, int );
+        StackedWidgetData(QObject *, QStackedWidget *, int);
 
-        protected Q_SLOTS:
+    protected Q_SLOTS:
 
         //* initialize animation
         bool initializeAnimation() override;
@@ -59,16 +57,14 @@ namespace Lightly
         //* called when target is destroyed
         void targetDestroyed();
 
-        private:
+    private:
 
         //* target
         WeakPointer<QStackedWidget> _target;
 
         //* current index
         int _index;
-
     };
-
 }
 
 #endif

@@ -29,38 +29,35 @@
 
 namespace Lightly
 {
-
     //________________________________________________________________________
-    template< typename T > void MenuBarDataV1::enterEvent( const QObject* object )
+    template<typename T>
+    void MenuBarDataV1::enterEvent(const QObject *object)
     {
-
-        const T* local = qobject_cast<const T*>( object );
-        if( !local ) return;
+        const T *local = qobject_cast<const T *>(object);
+        if (!local) { return; }
 
         // if the current action is still active, one does nothing
-        if( local->activeAction() == currentAction().data() ) return;
+        if (local->activeAction() == currentAction().data()) { return; }
 
-        if( currentAnimation().data()->isRunning() ) currentAnimation().data()->stop();
+        if (currentAnimation().data()->isRunning()) { currentAnimation().data()->stop(); }
         clearCurrentAction();
         clearCurrentRect();
-
     }
 
     //________________________________________________________________________
-    template< typename T > void MenuBarDataV1::leaveEvent( const QObject* object )
+    template<typename T>
+    void MenuBarDataV1::leaveEvent(const QObject *object)
     {
-
-        const T* local = qobject_cast<const T*>( object );
-        if( !local ) return;
+        const T *local = qobject_cast<const T *>(object);
+        if (!local) { return; }
 
         // if the current action is still active, one does nothing
-        if( local->activeAction() == currentAction().data() ) return;
+        if (local->activeAction() == currentAction().data()) { return; }
 
-        if( currentAnimation().data()->isRunning() ) currentAnimation().data()->stop();
-        if( previousAnimation().data()->isRunning() ) previousAnimation().data()->stop();
-        if( currentAction() )
-        {
-            setPreviousRect( currentRect() );
+        if (currentAnimation().data()->isRunning()) { currentAnimation().data()->stop(); }
+        if (previousAnimation().data()->isRunning()) { previousAnimation().data()->stop(); }
+        if (currentAction()) {
+            setPreviousRect(currentRect());
             clearCurrentAction();
             clearCurrentRect();
             previousAnimation().data()->start();
@@ -68,86 +65,75 @@ namespace Lightly
 
         // trigger update
         setDirty();
-
     }
 
     //________________________________________________________________________
-    template< typename T > void MenuBarDataV1::mouseMoveEvent( const QObject* object )
+    template<typename T>
+    void MenuBarDataV1::mouseMoveEvent(const QObject *object)
     {
-
-        const T* local = qobject_cast<const T*>( object );
-        if( !local ) return;
+        const T *local = qobject_cast<const T *>(object);
+        if (!local) { return; }
 
         // check action
-        if( local->activeAction() == currentAction().data() ) return;
+        if (local->activeAction() == currentAction().data()) { return; }
 
-        bool hasCurrentAction( currentAction() );
+        bool hasCurrentAction(currentAction());
 
         // check current action
-        if( currentAction() )
-        {
-            if( currentAnimation().data()->isRunning() ) currentAnimation().data()->stop();
-            if( previousAnimation().data()->isRunning() ) {
+        if (currentAction()) {
+            if (currentAnimation().data()->isRunning()) { currentAnimation().data()->stop(); }
+            if (previousAnimation().data()->isRunning()) {
                 previousAnimation().data()->setCurrentTime(0);
                 previousAnimation().data()->stop();
             }
 
             // only start fadeout effect if there is no new selected action
             //if( !activeActionValid )
-            if( !local->activeAction() )
-            {
-                setPreviousRect( currentRect() );
+            if (!local->activeAction()) {
+                setPreviousRect(currentRect());
                 previousAnimation().data()->start();
             }
 
             clearCurrentAction();
             clearCurrentRect();
-
         }
 
         // check if local current actions is valid
-        bool activeActionValid( local->activeAction() && local->activeAction()->isEnabled() && !local->activeAction()->isSeparator() );
-        if( activeActionValid )
-        {
-            if( currentAnimation().data()->isRunning() ) currentAnimation().data()->stop();
+        bool activeActionValid
+            (local->activeAction() && local->activeAction()->isEnabled() && !local->activeAction()->isSeparator());
+        if (activeActionValid) {
+            if (currentAnimation().data()->isRunning()) { currentAnimation().data()->stop(); }
 
-            setCurrentAction( local->activeAction() );
-            setCurrentRect( local->actionGeometry( currentAction().data() ) );
-            if( !hasCurrentAction )
-            { currentAnimation().data()->start(); }
-
+            setCurrentAction(local->activeAction());
+            setCurrentRect(local->actionGeometry(currentAction().data()));
+            if (!hasCurrentAction) { currentAnimation().data()->start(); }
         }
-
     }
 
     //________________________________________________________________________
-    template< typename T > void MenuBarDataV1::mousePressEvent( const QObject* object )
+    template<typename T>
+    void MenuBarDataV1::mousePressEvent(const QObject *object)
     {
-
-        const T* local = qobject_cast<const T*>( object );
-        if( !local ) return;
+        const T *local = qobject_cast<const T *>(object);
+        if (!local) { return; }
 
         // check action
-        if( local->activeAction() == currentAction().data() ) return;
+        if (local->activeAction() == currentAction().data()) { return; }
 
         // check current action
-        bool activeActionValid( local->activeAction() && local->activeAction()->isEnabled() && !local->activeAction()->isSeparator() );
-        if( currentAction() && !activeActionValid )
-        {
+        bool activeActionValid
+            (local->activeAction() && local->activeAction()->isEnabled() && !local->activeAction()->isSeparator());
+        if (currentAction() && !activeActionValid) {
+            if (currentAnimation().data()->isRunning()) { currentAnimation().data()->stop(); }
+            if (previousAnimation().data()->isRunning()) { previousAnimation().data()->stop(); }
 
-            if( currentAnimation().data()->isRunning() ) currentAnimation().data()->stop();
-            if( previousAnimation().data()->isRunning() ) previousAnimation().data()->stop();
-
-            setPreviousRect( currentRect() );
+            setPreviousRect(currentRect());
             previousAnimation().data()->start();
 
             clearCurrentAction();
             clearCurrentRect();
-
         }
-
     }
-
 }
 
 #endif

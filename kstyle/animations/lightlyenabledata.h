@@ -24,25 +24,22 @@
 
 namespace Lightly
 {
-
     //* Enable data
     class EnableData: public WidgetStateData
     {
+    Q_OBJECT
 
-        Q_OBJECT
-
-        public:
+    public:
 
         //* constructor
-        EnableData( QObject* parent, QWidget* target, int duration, bool state = true ):
-            WidgetStateData( parent, target, duration, state )
-        { target->installEventFilter( this ); }
+        EnableData(QObject *parent, QWidget *target, int duration, bool state = true)
+            :
+            WidgetStateData(parent, target, duration, state)
+        { target->installEventFilter(this); }
 
         //* event filter
-        bool eventFilter( QObject*, QEvent* ) override;
-
+        bool eventFilter(QObject *, QEvent *) override;
     };
-
 }
 
 #endif

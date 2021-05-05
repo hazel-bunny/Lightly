@@ -28,24 +28,23 @@
 
 namespace Lightly
 {
-
     class Mnemonics: public QObject
     {
+    Q_OBJECT
 
-        Q_OBJECT
-
-        public:
+    public:
 
         //* constructor
-        explicit Mnemonics( QObject* parent ):
-            QObject( parent )
-            {}
+        explicit Mnemonics(QObject *parent)
+            :
+            QObject(parent)
+        {}
 
         //* set mode
-        void setMode( int );
+        void setMode(int);
 
         //* event filter
-        bool eventFilter( QObject*, QEvent* ) override;
+        bool eventFilter(QObject *, QEvent *) override;
 
         //* true if mnemonics are enabled
         bool enabled() const
@@ -55,18 +54,16 @@ namespace Lightly
         int textFlags() const
         { return _enabled ? Qt::TextShowMnemonic : Qt::TextHideMnemonic; }
 
-        protected:
+    protected:
 
         //* set enable state
-        void setEnabled( bool );
+        void setEnabled(bool);
 
-        private:
+    private:
 
         //* enable state
         bool _enabled = true;
-
     };
-
 }
 
 #endif

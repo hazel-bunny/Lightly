@@ -33,50 +33,47 @@
 
 namespace Lightly
 {
-
     //* used for simple widgets
     class StackedWidgetEngine: public BaseEngine
     {
+    Q_OBJECT
 
-        Q_OBJECT
-
-        public:
+    public:
 
         //* constructor
-        explicit StackedWidgetEngine( QObject* parent ):
-            BaseEngine( parent )
+        explicit StackedWidgetEngine(QObject *parent)
+            :
+            BaseEngine(parent)
         {}
 
         //* register widget
-        bool registerWidget( QStackedWidget* );
+        bool registerWidget(QStackedWidget *);
 
         //* duration
-        void setEnabled( bool value ) override
+        void setEnabled(bool value) override
         {
-            BaseEngine::setEnabled( value );
-            _data.setEnabled( value );
+            BaseEngine::setEnabled(value);
+            _data.setEnabled(value);
         }
 
         //* duration
-        void setDuration( int value ) override
+        void setDuration(int value) override
         {
-            BaseEngine::setDuration( value );
-            _data.setDuration( value );
+            BaseEngine::setDuration(value);
+            _data.setDuration(value);
         }
 
-        public Q_SLOTS:
+    public Q_SLOTS:
 
         //* remove widget from map
-        bool unregisterWidget( QObject* object ) override
-        { return _data.unregisterWidget( object ); }
+        bool unregisterWidget(QObject *object) override
+        { return _data.unregisterWidget(object); }
 
-        private:
+    private:
 
         //* maps
         DataMap<StackedWidgetData> _data;
-
     };
-
 }
 
 #endif

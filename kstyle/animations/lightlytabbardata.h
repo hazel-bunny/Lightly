@@ -26,43 +26,40 @@
 
 namespace Lightly
 {
-
     //* tabbars
     class TabBarData: public AnimationData
     {
-
-        Q_OBJECT
+    Q_OBJECT
 
         //* declare opacity property
-        Q_PROPERTY( qreal currentOpacity READ currentOpacity WRITE setCurrentOpacity )
-        Q_PROPERTY( qreal previousOpacity READ previousOpacity WRITE setPreviousOpacity )
+        Q_PROPERTY(qreal currentOpacity READ currentOpacity WRITE setCurrentOpacity)
+        Q_PROPERTY(qreal previousOpacity READ previousOpacity WRITE setPreviousOpacity)
 
-        public:
+    public:
 
         //* constructor
-        TabBarData( QObject* parent, QWidget* target, int duration );
+        TabBarData(QObject *parent, QWidget *target, int duration);
 
         //* duration
-        void setDuration( int duration ) override
+        void setDuration(int duration) override
         {
-            currentIndexAnimation().data()->setDuration( duration );
-            previousIndexAnimation().data()->setDuration( duration );
+            currentIndexAnimation().data()->setDuration(duration);
+            previousIndexAnimation().data()->setDuration(duration);
         }
 
         //* update state
-        bool updateState( const QPoint&, bool );
+        bool updateState(const QPoint &, bool);
 
         //*@name current index handling
         //@{
-
         //* current opacity
         qreal currentOpacity() const
         { return _current._opacity; }
 
         //* current opacity
-        void setCurrentOpacity( qreal value )
+        void setCurrentOpacity(qreal value)
         {
-            if( _current._opacity == value ) return;
+            if (_current._opacity == value) { return; }
             _current._opacity = value;
             setDirty();
         }
@@ -72,26 +69,25 @@ namespace Lightly
         { return _current._index; }
 
         //* current index
-        void setCurrentIndex( int index )
+        void setCurrentIndex(int index)
         { _current._index = index; }
 
         //* current index animation
-        const Animation::Pointer& currentIndexAnimation() const
+        const Animation::Pointer &currentIndexAnimation() const
         { return _current._animation; }
 
         //@}
 
         //*@name previous index handling
         //@{
-
         //* previous opacity
         qreal previousOpacity() const
         { return _previous._opacity; }
 
         //* previous opacity
-        void setPreviousOpacity( qreal value )
+        void setPreviousOpacity(qreal value)
         {
-            if( _previous._opacity == value ) return;
+            if (_previous._opacity == value) { return; }
             _previous._opacity = value;
             setDirty();
         }
@@ -101,30 +97,31 @@ namespace Lightly
         { return _previous._index; }
 
         //* previous index
-        void setPreviousIndex( int index )
+        void setPreviousIndex(int index)
         { _previous._index = index; }
 
         //* previous index Animation
-        const Animation::Pointer& previousIndexAnimation() const
+        const Animation::Pointer &previousIndexAnimation() const
         { return _previous._animation; }
 
         //@}
 
         //* return Animation associated to action at given position, if any
-        Animation::Pointer animation( const QPoint& position ) const;
+        Animation::Pointer animation(const QPoint &position) const;
 
         //* return opacity associated to action at given position, if any
-        qreal opacity( const QPoint& position ) const;
+        qreal opacity(const QPoint &position) const;
 
-        private:
+    private:
 
         //* container for needed animation data
         class Data
         {
-            public:
+        public:
 
             //* default constructor
-            Data():
+            Data()
+                :
                 _opacity(0),
                 _index(-1)
             {}
@@ -139,9 +136,7 @@ namespace Lightly
 
         //* previous tab animations data (for hover leave animations)
         Data _previous;
-
     };
-
 }
 
 #endif

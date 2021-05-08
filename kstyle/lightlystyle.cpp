@@ -1391,8 +1391,13 @@ namespace Lightly
             }
         }
 
+        QColor c(palette.color(textRole));
+        c.setAlpha(100);
+        QPalette p;
+        p.setColor(textRole, c);
+
         // fallback
-        return ParentStyleClass::drawItemText(painter, rect, flags, palette, enabled, text, textRole);
+        return ParentStyleClass::drawItemText(painter, rect, flags, enabled ? palette : p, true, text, textRole);
     }
 
     //_____________________________________________________________________
@@ -5774,19 +5779,19 @@ namespace Lightly
             const QPalette::ColorRole
                 role = (useStrongFocus && (selected || sunken)) ? QPalette::HighlightedText : QPalette::Text;
 
+            // add a bit of transparency
+            QColor c(palette.color(role));
+            c.setAlpha(100);
+            QPalette p;
+            p.setColor(role, c);
+
             // locate accelerator and render
             const int tabPosition(text.indexOf(QLatin1Char('\t')));
             if (tabPosition >= 0) {
-                // add a bit of transparency
-                QColor c(palette.color(role));
-                c.setAlpha(100);
-                QPalette p;
-                p.setColor(role, c);
-
                 const int textFlags(Qt::AlignVCenter | Qt::AlignRight);
                 QString accelerator(text.mid(tabPosition + 1));
                 text = text.left(tabPosition);
-                drawItemText(painter, textRect, textFlags, p, enabled, accelerator, role);
+                drawItemText(painter, textRect, textFlags, p, true, accelerator, role);
             }
 
             // render text
@@ -5797,7 +5802,6 @@ namespace Lightly
 
             // render hover and focus
             if (!useStrongFocus && (selected || sunken)) {
-
                 QColor outlineColor;
                 if (sunken) { outlineColor = _helper->focusColor(palette); }
                 else if (selected) { outlineColor = _helper->hoverColor(palette); }

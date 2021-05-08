@@ -5557,9 +5557,9 @@ namespace Lightly
 
                 const auto color(_helper->separatorColor(palette));
                 _helper->renderSeparator(painter,
-                                         rect.adjusted(Metrics::MenuItem_MarginWidth * 2,
+                                         rect.adjusted(Metrics::MenuItem_MarginWidth * 4,
                                                        0,
-                                                       -Metrics::MenuItem_MarginWidth * 2,
+                                                       -Metrics::MenuItem_MarginWidth * 4,
                                                        0),
                                          color);
                 return true;

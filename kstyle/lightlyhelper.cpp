@@ -1132,8 +1132,8 @@ namespace Lightly
         const bool darkTheme(isDarkTheme(palette));
 
         QColor color = palette.color(QPalette::HighlightedText);
-        if (isInMenu) {
-            color = selected ? palette.color(QPalette::HighlightedText) : palette.color(QPalette::ButtonText);
+        if (isInMenu && !selected) {
+            color = palette.color(QPalette::ButtonText);
         }
 
         QColor background(state == CheckOn ? palette.color(QPalette::Highlight) : palette.color(QPalette::Button));
@@ -1334,7 +1334,10 @@ namespace Lightly
 
         // setup colors
         const bool darkTheme(isDarkTheme(palette));
-        const QColor color(palette.color(QPalette::HighlightedText));
+        QColor color(palette.color(QPalette::HighlightedText));
+        if (isInMenu && !mouseOver) {
+            color = palette.color(QPalette::ButtonText);
+        }
         QColor background(state == RadioOn ? palette.color(QPalette::Highlight) : palette.color(QPalette::Button));
         if (isInMenu) { background = background.lighter(115); }
 
@@ -1349,18 +1352,20 @@ namespace Lightly
 
         // mark
         if (state == RadioOn) {
-            // strong shadows don't look good with light themes
-            if (darkTheme) {
-                renderEllipseShadow(painter, frameRect, mouseOver ? background.darker(110) : background.darker(200), 4,
-                                    8, 5, 0, 1, true, 15);
-            }
-            else {
-                renderEllipseShadow(painter, frameRect, mouseOver ? background.darker(110) : background.darker(200), 4,
-                                    4, 6, 0, 1, true, 8);
-            }
+            if (!isInMenu) {
+                // strong shadows don't look good with light themes
+                if (darkTheme) {
+                    renderEllipseShadow(painter, frameRect, mouseOver ? background.darker(110) : background.darker(200), 4,
+                                        8, 5, 0, 1, true, 15);
+                }
+                else {
+                    renderEllipseShadow(painter, frameRect, mouseOver ? background.darker(110) : background.darker(200), 4,
+                                        4, 6, 0, 1, true, 8);
+                }
 
-            painter->setBrush(mouseOver ? background.lighter(110) : background);
-            painter->drawEllipse(frameRect);
+                painter->setBrush(mouseOver ? background.lighter(110) : background);
+                painter->drawEllipse(frameRect);
+            }
 
             // inner ellipse
             const QRectF markerRect(frameRect.adjusted(4, 4, -4, -4));
@@ -1370,7 +1375,7 @@ namespace Lightly
             painter->setBrush(color);
             painter->drawEllipse(markerRect);
         }
-        else if (state == RadioOff) {
+        else if (state == RadioOff && !isInMenu) {
             if (mouseOver) { renderEllipseShadow(painter, frameRect, QColor(0, 0, 0), 5, 1, 4, 0, 1, true, 15); }
             else { renderEllipseShadow(painter, frameRect, QColor(0, 0, 0), 2, 12, 3, 0, 1, true, 15); }
             painter->setBrush(mouseOver ? background.lighter(115) : background);
@@ -1438,7 +1443,7 @@ namespace Lightly
                 painter->drawEllipse(markerRect);
             }
         }
-        if (darkTheme) { topHighlight(painter, frameRect, frameRect.width() / 2); }
+        if (darkTheme && !isInMenu) { topHighlight(painter, frameRect, frameRect.width() / 2); }
     }
 
 //______________________________________________________________________________

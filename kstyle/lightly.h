@@ -44,43 +44,43 @@ namespace Lightly
     {
 
         // frames
-        Frame_FrameWidth = 5,
+        Frame_FrameWidth = 2,
         //Frame_FrameRadius = 6,
 
         // layout
-        Layout_TopLevelMarginWidth = 10,
-        Layout_ChildMarginWidth = 6,
-        Layout_DefaultSpacing = 8,
+        Layout_TopLevelMarginWidth = 5,
+        Layout_ChildMarginWidth = 2,
+        Layout_DefaultSpacing = 1,
 
         // line editors
-        LineEdit_FrameWidth = 5 + Frame_FrameWidth,
+        LineEdit_FrameWidth = 2 + Frame_FrameWidth,
 
         // menu items
         //Menu_FrameWidth = 4,
-        MenuItem_MarginWidth = 5,
+        MenuItem_MarginWidth = 3,
         MenuItem_MarginHeight = 3,
-        MenuItem_ItemSpacing = 4,
+        MenuItem_ItemSpacing = 2,
         MenuItem_AcceleratorSpace = 16,
         MenuButton_IndicatorWidth = 20,
 
         // combobox
-        ComboBox_FrameWidth = 5 + Frame_FrameWidth,
+        ComboBox_FrameWidth = 2 + Frame_FrameWidth,
 
         // spinbox
         SpinBox_FrameWidth = LineEdit_FrameWidth,
         SpinBox_ArrowButtonWidth = 20,
 
         // groupbox title margin
-        GroupBox_TitleMarginWidth = 4,
+        GroupBox_TitleMarginWidth = 2,
 
         // buttons
-        Button_MinWidth = 80,
-        Button_MarginWidth = 6,
-        Button_ItemSpacing = 4,
+        Button_MinWidth = 70,
+        Button_MarginWidth = 4,
+        Button_ItemSpacing = 3,
 
         // tool buttons
-        ToolButton_MarginWidth = 6,
-        ToolButton_ItemSpacing = 4,
+        ToolButton_MarginWidth = 3,
+        ToolButton_ItemSpacing = 3,
         ToolButton_InlineIndicatorWidth = 12,
 
         // checkboxes and radio buttons
@@ -89,8 +89,8 @@ namespace Lightly
         CheckBox_ItemSpacing = 4,
 
         // menubar items
-        MenuBarItem_MarginWidth = 10,
-        MenuBarItem_MarginHeight = 6,
+        MenuBarItem_MarginWidth = 5,
+        MenuBarItem_MarginHeight = 3,
 
         // scrollbars
         ScrollBar_Extend = 21,
@@ -104,17 +104,17 @@ namespace Lightly
         ToolBar_FrameWidth = 2,
         ToolBar_HandleExtent = 10,
         ToolBar_HandleWidth = 6,
-        ToolBar_SeparatorWidth = 8,
+        ToolBar_SeparatorWidth = 4,
         ToolBar_ExtensionWidth = 20,
         ToolBar_ItemSpacing = 0,
 
         // progressbars
         ProgressBar_BusyIndicatorSize = 14,
         ProgressBar_Thickness = 4,
-        ProgressBar_ItemSpacing = 4,
+        ProgressBar_ItemSpacing = 2,
 
         // mdi title bar
-        TitleBar_MarginWidth = 4,
+        TitleBar_MarginWidth = 3,
 
         // sliders
         Slider_TickLength = 8,
@@ -123,34 +123,34 @@ namespace Lightly
         Slider_ControlThickness = 20,
 
         // tabbar
-        TabBar_TabMarginHeight = 4,
-        TabBar_TabMarginWidth = 8,
+        TabBar_TabMarginHeight = 2,
+        TabBar_TabMarginWidth = 2,
         TabBar_TabMinWidth = 80,
-        TabBar_TabMinHeight = 33,
-        TabBar_TabItemSpacing = 8,
+        TabBar_TabMinHeight = 24,
+        TabBar_TabItemSpacing = 1,
         TabBar_TabOverlap = 0,
         TabBar_BaseOverlap = 2,
 
         // tab widget
-        TabWidget_MarginWidth = 4,
+        TabWidget_MarginWidth = 2,
 
         // toolbox
         ToolBox_TabMinWidth = 80,
-        ToolBox_TabItemSpacing = 4,
-        ToolBox_TabMarginWidth = 8,
+        ToolBox_TabItemSpacing = 3,
+        ToolBox_TabMarginWidth = 4,
 
         // tooltips
         ToolTip_FrameWidth = 3,
 
         // list headers
-        Header_MarginWidth = 6,
-        Header_ItemSpacing = 4,
+        Header_MarginWidth = 3,
+        Header_ItemSpacing = 3,
         Header_ArrowSize = 10,
 
         // tree view
         ItemView_ArrowSize = 10,
-        ItemView_ItemMarginWidth = 3,
-        SidePanel_ItemMarginWidth = 4,
+        ItemView_ItemMarginWidth = 2,
+        SidePanel_ItemMarginWidth = 3,
 
         // splitter
         Splitter_SplitterWidth = 1,

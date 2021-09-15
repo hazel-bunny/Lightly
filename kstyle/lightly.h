@@ -44,7 +44,7 @@ namespace Lightly
     {
 
         // frames
-        Frame_FrameWidth = 2,
+        Frame_FrameWidth = 3,
         //Frame_FrameRadius = 6,
 
         // layout
@@ -53,7 +53,7 @@ namespace Lightly
         Layout_DefaultSpacing = 1,
 
         // line editors
-        LineEdit_FrameWidth = 2 + Frame_FrameWidth,
+        LineEdit_FrameWidth = 1 + Frame_FrameWidth,
 
         // menu items
         //Menu_FrameWidth = 4,
@@ -64,7 +64,7 @@ namespace Lightly
         MenuButton_IndicatorWidth = 20,
 
         // combobox
-        ComboBox_FrameWidth = 2 + Frame_FrameWidth,
+        ComboBox_FrameWidth = 1 + Frame_FrameWidth,
 
         // spinbox
         SpinBox_FrameWidth = LineEdit_FrameWidth,

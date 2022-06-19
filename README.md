@@ -2,7 +2,7 @@
   <img src="logo.png"/>
 </p>
 
-*Lightly* is a fork of breeze theme style that aims to be visually modern and minimalistic. 
+*Lightly* is a fork of breeze theme style that aims to be visually modern and minimalistic.
 
 ## Development ⚠️
 
@@ -25,21 +25,21 @@ With a full glass color scheme (currently full glass color schemes are very bugg
 
 ![config page](https://github.com/Luwx/Lightly/blob/master/config.png)
 
-Lightly configuration page can be found in the KDE system settings under the Application style section. 
+Lightly configuration page can be found in the KDE system settings under the Application style section.
 
 
 Most of these options are inherited from Breeze style, but Lightly has a few exclusive options that are enabled by default, including:
 
 * Transparent Dolphin view (under the **frames** tab). This option disables the background and shadows of Dolphin view widget and draws top and bottom separators when the view has scrollable content.
 
-*  Sidebar opacity (under the **transparency** tab). By default, it's 60. If it's bellow 100, shadows will be drawn automatically. 
+*  Sidebar opacity (under the **transparency** tab). By default, it's 60. If it's bellow 100, shadows will be drawn automatically.
 
 The toolbar and menubar will follow the **titlebar** opacity. To configure the titlebar opacity, you will have to change the color scheme file directly in ~/.local/share/color-schemes. Open your desired color scheme and, in the ```[WM]``` section, add a fourth value to ```activeBackground``` and ```inactiveBackground```, like ```activeBackground=0,0,0,127``` where the last value is the alpha, that ranges from 0 (completely transparent) to 255 (totally opaque).
 
 ## Installation
 
 ### Installing Lightly from [chaotic-aur](https://aur.chaotic.cx/) on ArchLinux and its [derivatives](https://wiki.archlinux.org/title/Arch-based_distributions)
-  1. Follow the instructions [here](https://aur.chaotic.cx/) on how to setup chaotic-aur 
+  1. Follow the instructions [here](https://aur.chaotic.cx/) on how to setup chaotic-aur
   2. run: ```sudo pacman -Syyu lightly-qt```
 
 ### Installing Lightly from RPM repository on openSUSE Tumbleweed:
@@ -83,7 +83,7 @@ Taken from https://github.com/n4n0GH/hello
 
 #### Ubuntu
 ```
-sudo apt install cmake build-essential libkf5config-dev libkdecorations2-dev libqt5x11extras5-dev qtdeclarative5-dev extra-cmake-modules libkf5guiaddons-dev libkf5configwidgets-dev libkf5windowsystem-dev libkf5coreaddons-dev libkf5iconthemes-dev gettext qt3d5-dev
+sudo apt install cmake build-essential libkf5config-dev libkdecorations2-dev libqt5x11extras5-dev qtdeclarative5-dev extra-cmake-modules libkf5guiaddons-dev libkf5configwidgets-dev libkf5windowsystem-dev libkf5coreaddons-dev libkf5iconthemes-dev gettext qt3d5-dev libkf5style5 libkf5style-dev
 ```
 
 #### Arch Linux
@@ -127,8 +127,3 @@ sudo make uninstall
 ## Acknowledgments
 
 Breeze authors and Kvantum developer Pedram Pourang.
-
-
-
-
-

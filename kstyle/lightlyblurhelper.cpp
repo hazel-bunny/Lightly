@@ -44,7 +44,7 @@
 //#include <QDebug>
 namespace
 {
-	
+
     QRegion roundedRegion(const QRect &rect, int radius, bool topLeft, bool topRight, bool bottomLeft, bool bottomRight)
     {
         QRegion region(rect, QRegion::Rectangle);
@@ -56,7 +56,7 @@ namespace
             const QRegion topLeftEar = topLeftCorner - topLeftRounded;
             region -= topLeftEar;
         }
-        
+
         if (topRight) {
             // Round top-right corner.
             const QRegion topRightCorner(
@@ -80,7 +80,7 @@ namespace
             const QRegion bottomRightEar = bottomRightCorner - bottomRightRounded;
             region -= bottomRightEar;
         }
-        
+
         if (bottomLeft){
             // Round bottom-left corner.
             const QRegion bottomLeftCorner(
@@ -95,7 +95,7 @@ namespace
 
         return region;
     }
-	
+
 }
 
 namespace Lightly
@@ -114,7 +114,7 @@ namespace Lightly
 
         // schedule shadow area repaint
         update(widget);
-        
+
         _isDolphin = isDolphin;
     }
 
@@ -150,7 +150,7 @@ namespace Lightly
         // never eat events
         return false;
     }
-    
+
     //___________________________________________________________
     QRegion BlurHelper::blurRegion (QWidget* widget) const
     {
@@ -169,16 +169,16 @@ namespace Lightly
             || widget->inherits("QComboBoxPrivateContainer"))
         {
             return roundedRegion(rect, StyleConfigData::cornerRadius()+1, true, true, true, true);
-        } 
-        else 
+        }
+        else
             {
                 // blur entire window
                 if( widget->palette().color( QPalette::Window ).alpha() < 255 )
                     return roundedRegion(rect, StyleConfigData::cornerRadius(), false, false, true, true);
-                
+
                 // blur specific widgets
                 QRegion region;
-                
+
                 // toolbar and menubar
                 if( _translucentTitlebar )
                 {
@@ -186,7 +186,7 @@ namespace Lightly
                     int menubarHeight = 0;
                     if ( QMainWindow *mw = qobject_cast<QMainWindow*>( widget ) )
                     {
-                        if ( QWidget *mb = mw->menuWidget() ) 
+                        if ( QWidget *mb = mw->menuWidget() )
                         {
                             if ( mb->isVisible() )
                             {
@@ -195,13 +195,13 @@ namespace Lightly
                             }
                         }
                     }
-                
+
                     QList<QToolBar *> toolbars = widget->window()->findChildren<QToolBar *>( QString(), Qt::FindDirectChildrenOnly );
                     QRect mainToolbar = QRect();
-                    
+
                     // just assuming
                     Qt::Orientation orientation = Qt::Vertical;
-                    
+
                     // find which one is the main toolbar
                     for( auto tb : toolbars )
                     {
@@ -210,14 +210,14 @@ namespace Lightly
                             region += QRegion( QRect( tb->pos(), tb->rect().size() ) );
                             orientation = tb->orientation();
                         }
-                        
+
                         else if ( tb && tb->isVisible() )
                         {
                             if( mainToolbar.isNull() ) {
                                 mainToolbar = QRect( tb->pos(), tb->rect().size() );
                                 orientation = tb->orientation();
                             }
-                            
+
                             // test against the previous best caditate
                             else
                             {
@@ -228,10 +228,10 @@ namespace Lightly
                             }
                         }
                     }
-                    
+
                     if ( mainToolbar.isValid() )
                     {
-    
+
                         // make adjustments
                         if( orientation == Qt::Horizontal )
                         {
@@ -243,28 +243,28 @@ namespace Lightly
                                 mainToolbar.setWidth( widget->width() );
                                 region += mainToolbar;
                             }
-                            
+
                             // round corners if it is at the bottom
                             else if ( mainToolbar.y() + mainToolbar.height() == widget->height() )
                                 region += roundedRegion( mainToolbar, StyleConfigData::cornerRadius(),  false, false, false, true );
-                            
+
                             //else
                             //    region += mainToolbar;
-                            
+
                         } else {
-                            
+
                             // round bottom left
-                            if( mainToolbar.x() == 0 ) 
+                            if( mainToolbar.x() == 0 )
                                 region += roundedRegion( mainToolbar, StyleConfigData::cornerRadius(),  false, false, true, false );
-                            
+
                             // round bottom right
-                            else if( mainToolbar.x() + mainToolbar.width() == widget->width() ) 
+                            else if( mainToolbar.x() + mainToolbar.width() == widget->width() )
                                 region += roundedRegion( mainToolbar, StyleConfigData::cornerRadius(),  false, false, false, true );
-                            
+
                             // no round corners
                             //else region += mainToolbar; //FIXME: is this valid?
                         }
-                        
+
                     }
                 }
 
@@ -273,8 +273,8 @@ namespace Lightly
                 {
                     if( _isDolphin  )
                     {
-                        
-                        // sidetoolbar 
+
+                        // sidetoolbar
                         if( !_translucentTitlebar )
                         {
                             QToolBar *toolbar = widget->window()->findChild<QToolBar *>( QString(), Qt::FindDirectChildrenOnly );
@@ -285,26 +285,26 @@ namespace Lightly
                                 }
                             }
                         }
-                        
+
                         // sidepanels
                         QList<QWidget *> sidebars = widget->findChildren<QWidget *>( QRegularExpression("^(places|terminal|info|folders)Dock$"), Qt::FindDirectChildrenOnly );
                         for ( auto sb : sidebars )
                         {
                             if ( sb && sb->isVisible() )
                             {
-                                if( sb->x() == 0 ) 
+                                if( sb->x() == 0 )
                                     region += roundedRegion( QRect( sb->pos(), sb->rect().size() ), StyleConfigData::cornerRadius(), false, false, true, false);
-                                else if ( sb->x() + sb->width() == widget->width() ) 
+                                else if ( sb->x() + sb->width() == widget->width() )
                                     region += roundedRegion( QRect( sb->pos(), sb->rect().size() ), StyleConfigData::cornerRadius(), false, false, false, true);
                                 else region += QRect( sb->pos(), sb->rect().size() );
                             }
                         }
-                        
+
                         // settings page
                         if( (widget->windowFlags() & Qt::WindowType_Mask) == Qt::Dialog )
                         {
                             QList<QWidget *> dialogWidgets = widget->findChildren<QWidget *>( QString(), Qt::FindDirectChildrenOnly );
-                            for( auto w : dialogWidgets ) 
+                            for( auto w : dialogWidgets )
                             {
                                 if( w->inherits( "KPageWidget" ) )
                                 {
@@ -318,13 +318,13 @@ namespace Lightly
                                 }
                             }
                         }
-                        
+
                     }
 
                     /*if( (widget->windowFlags() & Qt::WindowType_Mask) == Qt::Dialog )
                     {
                         QList<QWidget *> dialogWidgets = widget->findChildren<QWidget *>( QString(), Qt::FindDirectChildrenOnly );
-                        for( auto w : dialogWidgets ) 
+                        for( auto w : dialogWidgets )
                         {
                             if( w->inherits( "KPageWidget" ) )
                             {
@@ -338,12 +338,12 @@ namespace Lightly
                             }
                         }
                     }*/
-                    
+
                 }
-                    
+
                 return region;
             }
-        }   
+        }
 
     //___________________________________________________________
     void BlurHelper::update(QWidget* widget) const
@@ -358,7 +358,7 @@ namespace Lightly
         QRegion region = blurRegion(widget);
         if (region.isNull()) return;
 
-        KWindowEffects::enableBlurBehind(widget->isWindow() ? widget->winId() : widget->window()->winId(), true, region);
+        KWindowEffects::enableBlurBehind(widget->isWindow() ? widget->windowHandle() : widget->window()->windowHandle(), true, region);
         //KWindowEffects::enableBackgroundContrast (widget->isWindow() ? widget->winId() : widget->window()->winId(), true, 1.0, 1.2, 1.3, region );
 
         // force update
